@@ -1,55 +1,94 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
 import React from "react"
-import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
-import "./layout.css"
+import Navbar from "./elements/navbar";
+import Footer from "./elements/footer";
+import NotificationBanner from "./elements/notification-banner";
+import { useState } from "react";
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
+  const data = useStaticQuery(globalQuery)
+  const { navbar, footer, notificationBanner } = data.strapi.global;
+
+  const [bannerIsShown, setBannerIsShown] = useState(true);
+
+  return (
+    <div className="flex flex-col justify-between min-h-screen">
+      {/* Aligned to the top */}
+      <div className="flex-1">
+        {notificationBanner && bannerIsShown && (
+          <NotificationBanner
+            data={notificationBanner}
+            closeSelf={() => setBannerIsShown(false)}
+          />
+        )}
+        <Navbar navbar={navbar} />
+        <div>{children}</div>
+      </div>
+      {/* Aligned to the bottom */}
+      <Footer footer={footer} />
+    </div>
+  );
+};
+
+export default Layout;
+
+const globalQuery = graphql`
+  query GlobalQuery {
+    strapi {
+      global {
+        footer {
+          columns {
+            id
+            links {
+              id
+              newTab
+              text
+              url
+            }
+            title
+          }
+          id
+          logo {
+            alternativeText
+            url
+          }
+          smallText
+        }
+        id
+        metaTitleSuffix
+        metadata {
+          id
+          metaDescription
+          metaTitle
+          twitterCardType
+          twitterUsername
+        }
+        navbar {
+          button {
+            id
+            newTab
+            text
+            type
+            url
+          }
+          id
+          links {
+            url
+            text
+            newTab
+            id
+          }
+          logo {
+            alternativeText
+            url
+          }
+        }
+        notificationBanner {
+          id
+          text
+          type
         }
       }
     }
-  `)
-
-  return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
-        >
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
-
-export default Layout
+  }
+`

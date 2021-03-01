@@ -1,21 +1,21 @@
 import React from "react"
-import { useState } from "react";
-import Link from "next/link";
-import PropTypes from "prop-types";
-import { MdMenu } from "react-icons/md";
-import MobileNavMenu from "./mobile-nav-menu";
-import ButtonLink from "./button-link";
-import Image from "./image";
+import { useState } from "react"
+import { Link } from "gatsby"
+import PropTypes from "prop-types"
+import { MdMenu } from "react-icons/md"
+import MobileNavMenu from "./mobile-nav-menu"
+import ButtonLink from "./button-link"
+import Image from "./image"
 import {
   mediaPropTypes,
   linkPropTypes,
   buttonLinkPropTypes,
-} from "@/utils/types";
-import { getButtonAppearance } from "@/utils/button";
-import CustomLink from "./custom-link";
+} from "@/utils/types"
+import { getButtonAppearance } from "@/utils/button"
+import CustomLink from "./custom-link"
 
 const Navbar = ({ navbar }) => {
-  const [mobileMenuIsShown, setMobileMenuIsShown] = useState(false);
+  const [mobileMenuIsShown, setMobileMenuIsShown] = useState(false)
 
   return (
     <>
@@ -24,7 +24,7 @@ const Navbar = ({ navbar }) => {
         <div className="container flex flex-row items-center justify-between">
           {/* Content aligned to the left */}
           <div className="flex flex-row items-center">
-            <Link href="/[[...slug]]" as="/">
+            <Link to="/[[...slug]]" as="/">
               <a>
                 <Image
                   media={navbar.logo}
@@ -34,7 +34,7 @@ const Navbar = ({ navbar }) => {
             </Link>
             {/* List of links on desktop */}
             <ul className="hidden list-none md:flex flex-row gap-4 items-baseline ml-10">
-              {navbar.links.map((navLink) => (
+              {navbar.links.map(navLink => (
                 <li key={navLink.id}>
                   <CustomLink link={navLink}>
                     <div className="hover:text-gray-900 px-2 py-1">
@@ -73,8 +73,8 @@ const Navbar = ({ navbar }) => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
 Navbar.propTypes = {
   navbar: PropTypes.shape({
@@ -82,6 +82,6 @@ Navbar.propTypes = {
     links: PropTypes.arrayOf(linkPropTypes),
     button: buttonLinkPropTypes,
   }),
-};
+}
 
-export default Navbar;
+export default Navbar
