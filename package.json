@@ -5,6 +5,9 @@
   "version": "0.1.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@tailwindcss/typography": "tailwindcss/typography",
+    "classnames": "^2.2.6",
+    "formik": "^2.2.6",
     "gatsby": "^2.32.3",
     "gatsby-image": "^2.11.0",
     "gatsby-plugin-gatsby-cloud": "^1.0.1",
@@ -13,16 +16,22 @@
     "gatsby-plugin-react-helmet": "^3.10.0",
     "gatsby-plugin-sharp": "^2.14.1",
     "gatsby-source-filesystem": "^2.11.0",
-    "gatsby-source-strapi": "^1.0.0-alpha.0",
+    "gatsby-source-graphql": "^2.14.0",
     "gatsby-transformer-sharp": "^2.12.0",
-    "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.2.0",
+    "react-markdown": "^5.0.3",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
-    "prettier": "2.2.1"
+    "autoprefixer": "^10.2.4",
+    "gatsby-plugin-postcss": "^3.7.0",
+    "postcss": "^8.2.6",
+    "prettier": "2.2.1",
+    "tailwindcss": "^2.0.3"
   },
   "keywords": [
     "gatsby"

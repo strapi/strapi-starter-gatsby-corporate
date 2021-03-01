@@ -30,21 +30,30 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    "gatsby-plugin-postcss",
     `gatsby-plugin-gatsby-cloud`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    // {
+    //   resolve: `gatsby-source-strapi`,
+    //   options: {
+    //     apiURL: `http://localhost:1337`,
+    //     queryLimit: 1000, // Default to 100
+    //     contentTypes: [
+    //       `page`,
+    //       // if you don't want to leave the definition of an api endpoint to the pluralize module
+    //     ],
+    //     //If using single types place them in this array.
+    //     singleTypes: [`global`],
+    //   },
+    // },
     {
-      resolve: `gatsby-source-strapi`,
+      resolve: "gatsby-source-graphql",
       options: {
-        apiURL: `http://localhost:1337`,
-        queryLimit: 1000, // Default to 100
-        contentTypes: [
-          `page`,
-          // if you don't want to leave the definition of an api endpoint to the pluralize module
-        ],
-        //If using single types place them in this array.
-        singleTypes: [`global`],
+        typeName: "Strapi",
+        fieldName: "strapi",
+        url: "http://localhost:1337/graphql",
       },
     },
   ],

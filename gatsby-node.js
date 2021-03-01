@@ -1,7 +1,40 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
+const path = require("path")
 
-// You can delete this file if you're not using it
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
+    },
+  })
+}
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+  // **Note:** The graphql function call returns a Promise
+  // see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise for more info
+  const { data } = await graphql(`
+    query {
+      strapi {
+        pages {
+          slug
+          id
+        }
+      }
+    }
+  `)
+  
+  data.strapi.pages.forEach(page => {
+    if (page.slug) {
+      createPage({
+        path: page.slug,
+        component: path.resolve("./src/templates/page.js"),
+        context: {
+          slug: page.slug,
+          id: page.id
+        },
+      })
+    }
+  })
+}
