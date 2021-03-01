@@ -24,12 +24,15 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
-  
-  data.strapi.pages.forEach(page => {
+
+  const PageTemplate = path.resolve("./src/templates/page.js")
+
+  // Create all non-root pages based on Strapi data
+  data.strapi.pages.filter(page => page.slug !== '').forEach(page => {
     if (page.slug) {
       createPage({
         path: page.slug,
-        component: path.resolve("./src/templates/page.js"),
+        component: PageTemplate,
         context: {
           slug: page.slug,
           id: page.id

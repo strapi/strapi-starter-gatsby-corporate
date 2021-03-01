@@ -8,7 +8,6 @@ const DynamicPage = ({ data }) => {
 
   return (
     <Layout>
-
       <Sections sections={sections} />
     </Layout>
   )
