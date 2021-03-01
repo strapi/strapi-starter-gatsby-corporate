@@ -4,15 +4,17 @@ import Layout from "@/components/layout"
 import Sections from "@/components/sections"
 
 const DynamicPage = ({ data }) => {
-  
   const sections = data.strapi.page.contentSections
 
   return (
     <Layout>
+
       <Sections sections={sections} />
     </Layout>
   )
 }
+
+export default DynamicPage
 
 export const query = graphql`
   query DynamicPageQuery($id: ID!) {
@@ -20,12 +22,6 @@ export const query = graphql`
       page(id: $id) {
         slug
         contentSections {
-          ... on Strapi_ComponentSectionsHero {
-            title
-            description
-            id
-            label
-          }
           ... on Strapi_ComponentSectionsBottomActions {
             id
             title
@@ -37,21 +33,79 @@ export const query = graphql`
               url
             }
           }
+          ... on Strapi_ComponentSectionsHero {
+            id
+            buttons {
+              id
+              newTab
+              text
+              type
+              url
+            }
+            description
+            label
+            picture {
+              alternativeText
+              url
+            }
+          }
           ... on Strapi_ComponentSectionsFeatureColumnsGroup {
             id
+            features {
+              description
+              icon {
+                alternativeText
+                url
+              }
+              id
+              title
+            }
           }
           ... on Strapi_ComponentSectionsFeatureRowsGroup {
             id
+            features {
+              description
+              id
+              link {
+                id
+                newTab
+                text
+                url
+              }
+              title
+            }
           }
           ... on Strapi_ComponentSectionsTestimonialsGroup {
             id
-            title
             description
+            link {
+              id
+              newTab
+              text
+              url
+            }
+            logos {
+              id
+              title
+              logo {
+                alternativeText
+                url
+              }
+            }
+            title
           }
           ... on Strapi_ComponentSectionsLargeVideo {
             id
-            title
             description
+            title
+            poster {
+              alternativeText
+              url
+            }
+            video {
+              alternativeText
+              url
+            }
           }
           ... on Strapi_ComponentSectionsRichText {
             id
@@ -60,17 +114,33 @@ export const query = graphql`
           ... on Strapi_ComponentSectionsPricing {
             id
             title
+            plans {
+              description
+              features {
+                id
+                name
+              }
+              id
+              isRecommended
+              name
+              price
+              pricePeriod
+            }
           }
           ... on Strapi_ComponentSectionsLeadForm {
             id
             emailPlaceholder
             location
+            submitButton {
+              id
+              text
+              type
+            }
             title
           }
         }
+        shortName
       }
     }
   }
 `
-
-export default DynamicPage
