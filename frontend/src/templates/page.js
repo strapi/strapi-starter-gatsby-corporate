@@ -74,6 +74,7 @@ export const query = graphql`
             newTab
             text
             url
+
           }
           media {
             id
