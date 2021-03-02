@@ -50,6 +50,8 @@ const globalQuery = graphql`
           }
           id
           logo {
+            id
+            mime
             alternativeText
             url
             id
@@ -82,6 +84,8 @@ const globalQuery = graphql`
             id
           }
           logo {
+            id
+            mime
             alternativeText
             url
             id

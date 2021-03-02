@@ -20,6 +20,7 @@ export const query = graphql`
     strapi {
       page(id: $id) {
         slug
+        shortName
         contentSections {
           ... on Strapi_ComponentSectionsBottomActions {
             id
@@ -41,9 +42,12 @@ export const query = graphql`
               type
               url
             }
+            title
             description
             label
             picture {
+              id
+              mime
               alternativeText
               url
             }
@@ -53,6 +57,8 @@ export const query = graphql`
             features {
               description
               icon {
+                id
+                mime
                 alternativeText
                 url
               }
@@ -70,13 +76,15 @@ export const query = graphql`
                 newTab
                 text
                 url
+
+              }
+              media {
+                id
+                mime
+                url
+                alternativeText
               }
               title
-              media {
-                mime
-                alternativeText
-                url
-              }
             }
           }
           ... on Strapi_ComponentSectionsTestimonialsGroup {
@@ -92,34 +100,40 @@ export const query = graphql`
               id
               title
               logo {
+                id
+                mime
                 alternativeText
                 url
               }
             }
-            title
             testimonials {
-              authorName
-              authorTitle
               id
-              link
               logo {
-                alternativeText
-                url
+                id
                 mime
+                url
+                alternativeText
               }
               picture {
-                alternativeText
-                url
+                id
                 mime
+                url
+                alternativeText
               }
               text
+              authorName
+              authorTitle
+              link
             }
+            title
           }
           ... on Strapi_ComponentSectionsLargeVideo {
             id
             description
             title
             poster {
+              id
+              mime
               alternativeText
               url
             }
@@ -160,7 +174,6 @@ export const query = graphql`
             title
           }
         }
-        shortName
       }
     }
   }

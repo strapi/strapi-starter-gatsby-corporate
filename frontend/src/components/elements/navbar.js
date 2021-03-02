@@ -25,12 +25,10 @@ const Navbar = ({ navbar }) => {
           {/* Content aligned to the left */}
           <div className="flex flex-row items-center">
             <Link to="/">
-              <a>
-                <Image
-                  media={navbar.logo}
-                  className="h-8 w-auto object-contain"
-                />
-              </a>
+              <Image
+                media={navbar.logo}
+                className="h-8 w-auto object-contain"
+              />
             </Link>
             {/* List of links on desktop */}
             <ul className="hidden list-none md:flex flex-row gap-4 items-baseline ml-10">

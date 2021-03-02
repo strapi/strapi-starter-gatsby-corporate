@@ -10,9 +10,7 @@ const CustomLink = ({ link, children }) => {
   if (isInternalLink) {
     return (
       <Link to={link.url} >
-        <a>
-          {children}
-        </a>
+        {children}
       </Link>
     )
   }
