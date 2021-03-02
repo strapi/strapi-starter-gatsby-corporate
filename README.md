@@ -2,19 +2,6 @@
 
 Gatsby starter for creating a corporate site with Strapi.
 
-![screen-website](/screenshot.png)
-
-This starter is designed for flexibility. Using it, you'll be able to manage your website content entirely in Strapi, and get a Gatsby site automatically generated. Content teams will be able to create pages and design their layout without help from developers.
-
-This starter features:
-
-- Pages creation within Strapi, no code necessary
-- Fully flexible page structure: design the pages you want using UI Sections
-- 8 UI Sections out of the box: Hero, RichText, LargeVideo, Testimonials, Pricing, BottomActions, FeatureRows, FeatureColumns
-- Easy to theme with Tailwind
-- Static site generation with Gatsby
-- An integrated Preview Mode, to view your pages on a private URL before publishing them
-
 ## Getting started
 
 Use our `create-strapi-starter` CLI to create your project.
