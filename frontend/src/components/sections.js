@@ -1,193 +1,52 @@
 import React from "react"
-import { graphql } from "gatsby"
-import Layout from "@/components/layout"
-import Sections from "@/components/sections"
-import SEO from "@/components/SEO"
+import Hero from "@/components/sections/hero";
+import LargeVideo from "@/components/sections/large-video";
+import FeatureColumnsGroup from "@/components/sections/feature-columns-group";
+import FeatureRowsGroup from "@/components/sections/feature-rows-group";
+import BottomActions from "@/components/sections/bottom-actions";
+import TestimonialsGroup from "@/components/sections/testimonials-group";
+import RichText from "./sections/rich-text";
+import Pricing from "./sections/pricing";
+import LeadForm from "./sections/lead-form";
 
-const DynamicPage = ({ data }) => {
-  const { contentSections, metadata } = data.strapi.page 
+// Map Strapi sections to section components
+const sectionComponents = {
+  "Strapi_ComponentSectionsHero": Hero,
+  "Strapi_ComponentSectionsLargeVideo": LargeVideo,
+  "Strapi_ComponentSectionsFeatureColumnsGroup": FeatureColumnsGroup,
+  "Strapi_ComponentSectionsFeatureRowsGroup": FeatureRowsGroup,
+  "Strapi_ComponentSectionsBottomActions": BottomActions,
+  "Strapi_ComponentSectionsTestimonialsGroup": TestimonialsGroup,
+  "Strapi_ComponentSectionsRichText": RichText,
+  "Strapi_ComponentSectionsPricing": Pricing,
+  "Strapi_ComponentSectionsLeadForm": LeadForm,
+};
 
-  return (
-    <>
-      <SEO seo={metadata} />
-      <Layout>
-        <Sections sections={contentSections} />
-      </Layout>
-    </>
-  )
-}
+// Display a section individually
+const Section = ({ sectionData }) => {
+  // Prepare the component
+  const SectionComponent = sectionComponents[sectionData.__typename];
 
-export default DynamicPage
-
-export const query = graphql`
-  query DynamicPageQuery($id: ID!) {
-    strapi {
-      page(id: $id) {
-        slug
-        shortName
-        metadata {
-          metaTitle
-          metaDescription
-          shareImage {
-            id
-            mime
-            url
-          }
-        }
-        contentSections {
-          ... on Strapi_ComponentSectionsBottomActions {
-            id
-            title
-            buttons {
-              id
-              newTab
-              text
-              type
-              url
-            }
-          }
-          ... on Strapi_ComponentSectionsHero {
-            id
-            buttons {
-              id
-              newTab
-              text
-              type
-              url
-            }
-            title
-            description
-            label
-            picture {
-              id
-              mime
-              alternativeText
-              url
-            }
-          }
-          ... on Strapi_ComponentSectionsFeatureColumnsGroup {
-            id
-            features {
-              description
-              icon {
-                id
-                mime
-                alternativeText
-                url
-              }
-              id
-              title
-            }
-          }
-          ... on Strapi_ComponentSectionsFeatureRowsGroup {
-            id
-            features {
-              description
-              id
-              link {
-                id
-                newTab
-                text
-                url
-
-              }
-              media {
-                id
-                mime
-                url
-                alternativeText
-              }
-              title
-            }
-          }
-          ... on Strapi_ComponentSectionsTestimonialsGroup {
-            id
-            description
-            link {
-              id
-              newTab
-              text
-              url
-            }
-            logos {
-              id
-              title
-              logo {
-                id
-                mime
-                alternativeText
-                url
-              }
-            }
-            testimonials {
-              id
-              logo {
-                id
-                mime
-                url
-                alternativeText
-              }
-              picture {
-                id
-                mime
-                url
-                alternativeText
-              }
-              text
-              authorName
-              authorTitle
-              link
-            }
-            title
-          }
-          ... on Strapi_ComponentSectionsLargeVideo {
-            id
-            description
-            title
-            poster {
-              id
-              mime
-              alternativeText
-              url
-            }
-            video {
-              alternativeText
-              url
-            }
-          }
-          ... on Strapi_ComponentSectionsRichText {
-            id
-            content
-          }
-          ... on Strapi_ComponentSectionsPricing {
-            id
-            title
-            plans {
-              description
-              features {
-                id
-                name
-              }
-              id
-              isRecommended
-              name
-              price
-              pricePeriod
-            }
-          }
-          ... on Strapi_ComponentSectionsLeadForm {
-            id
-            emailPlaceholder
-            location
-            submitButton {
-              id
-              text
-              type
-            }
-            title
-          }
-        }
-      }
-    }
+  if (!SectionComponent) {
+    return null;
   }
-`
+
+  // Display the section
+  return <SectionComponent data={sectionData} />;
+};
+
+// Display the list of sections
+const Sections = ({ sections }) => {
+  return (
+    <div className="flex flex-col">
+      {sections.map((section, i) => (
+        <Section
+          sectionData={section}
+          key={`${section.__component}${section.id, i}`}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default Sections;

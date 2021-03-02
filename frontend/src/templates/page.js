@@ -2,14 +2,18 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "@/components/layout"
 import Sections from "@/components/sections"
+import SEO from "@/components/seo"
 
 const DynamicPage = ({ data }) => {
-  const sections = data.strapi.page.contentSections
+  const { contentSections, metadata } = data.strapi.page
 
   return (
-    <Layout>
-      <Sections sections={sections} />
-    </Layout>
+    <>
+      <SEO seo={metadata} />
+      <Layout>
+        <Sections sections={contentSections} />
+      </Layout>
+    </>
   )
 }
 
@@ -21,6 +25,15 @@ export const query = graphql`
       page(id: $id) {
         slug
         shortName
+        metadata {
+          metaTitle
+          metaDescription
+          shareImage {
+            id
+            mime
+            url
+          }
+        }
         contentSections {
           ... on Strapi_ComponentSectionsBottomActions {
             id
