@@ -1,77 +1,193 @@
-// import { useRouter } from "next/router";
 import React from "react"
-import Hero from "@/components/sections/hero";
-import LargeVideo from "@/components/sections/large-video";
-import FeatureColumnsGroup from "@/components/sections/feature-columns-group";
-import FeatureRowsGroup from "@/components/sections/feature-rows-group";
-import BottomActions from "@/components/sections/bottom-actions";
-import TestimonialsGroup from "@/components/sections/testimonials-group";
-import RichText from "./sections/rich-text";
-import Pricing from "./sections/pricing";
-import LeadForm from "./sections/lead-form";
+import { graphql } from "gatsby"
+import Layout from "@/components/layout"
+import Sections from "@/components/sections"
+import SEO from "@/components/SEO"
 
-// Map Strapi sections to section components
-const sectionComponents = {
-  "Strapi_ComponentSectionsHero": Hero,
-  "Strapi_ComponentSectionsLargeVideo": LargeVideo,
-  "Strapi_ComponentSectionsFeatureColumnsGroup": FeatureColumnsGroup,
-  "Strapi_ComponentSectionsFeatureRowsGroup": FeatureRowsGroup,
-  "Strapi_ComponentSectionsBottomActions": BottomActions,
-  "Strapi_ComponentSectionsTestimonialsGroup": TestimonialsGroup,
-  "Strapi_ComponentSectionsRichText": RichText,
-  "Strapi_ComponentSectionsPricing": Pricing,
-  "Strapi_ComponentSectionsLeadForm": LeadForm,
-};
+const DynamicPage = ({ data }) => {
+  const { contentSections, metadata } = data.strapi.page 
 
-// Display a section individually
-const Section = ({ sectionData }) => {
-  // Prepare the component
-  const SectionComponent = sectionComponents[sectionData.__typename];
-
-  if (!SectionComponent) {
-    return null;
-  }
-
-  // Display the section
-  return <SectionComponent data={sectionData} />;
-};
-
-// const PreviewModeBanner = () => {
-//   const router = useRouter();
-//   const exitURL = `/api/exit-preview?redirect=${encodeURIComponent(
-//     router.asPath
-//   )}`;
-
-//   return (
-//     <div className="py-4 bg-red-600 text-red-100 font-semibold uppercase tracking-wide">
-//       <div className="container">
-//         Preview mode is on.{" "}
-//         <a
-//           className="underline"
-//           href={`/api/exit-preview?redirect=${router.asPath}`}
-//         >
-//           Turn off
-//         </a>
-//       </div>
-//     </div>
-//   );
-// };
-
-// Display the list of sections
-const Sections = ({ sections, preview }) => {
   return (
-    <div className="flex flex-col">
-      {/* Show a banner if preview mode is on */}
-      {/* {preview && <PreviewModeBanner />} */}
-      {/* Show the actual sections */}
-      {sections.map((section, i) => (
-        <Section
-          sectionData={section}
-          key={`${section.__component}${section.id, i}`}
-        />
-      ))}
-    </div>
-  );
-};
+    <>
+      <SEO seo={metadata} />
+      <Layout>
+        <Sections sections={contentSections} />
+      </Layout>
+    </>
+  )
+}
 
-export default Sections;
+export default DynamicPage
+
+export const query = graphql`
+  query DynamicPageQuery($id: ID!) {
+    strapi {
+      page(id: $id) {
+        slug
+        shortName
+        metadata {
+          metaTitle
+          metaDescription
+          shareImage {
+            id
+            mime
+            url
+          }
+        }
+        contentSections {
+          ... on Strapi_ComponentSectionsBottomActions {
+            id
+            title
+            buttons {
+              id
+              newTab
+              text
+              type
+              url
+            }
+          }
+          ... on Strapi_ComponentSectionsHero {
+            id
+            buttons {
+              id
+              newTab
+              text
+              type
+              url
+            }
+            title
+            description
+            label
+            picture {
+              id
+              mime
+              alternativeText
+              url
+            }
+          }
+          ... on Strapi_ComponentSectionsFeatureColumnsGroup {
+            id
+            features {
+              description
+              icon {
+                id
+                mime
+                alternativeText
+                url
+              }
+              id
+              title
+            }
+          }
+          ... on Strapi_ComponentSectionsFeatureRowsGroup {
+            id
+            features {
+              description
+              id
+              link {
+                id
+                newTab
+                text
+                url
+
+              }
+              media {
+                id
+                mime
+                url
+                alternativeText
+              }
+              title
+            }
+          }
+          ... on Strapi_ComponentSectionsTestimonialsGroup {
+            id
+            description
+            link {
+              id
+              newTab
+              text
+              url
+            }
+            logos {
+              id
+              title
+              logo {
+                id
+                mime
+                alternativeText
+                url
+              }
+            }
+            testimonials {
+              id
+              logo {
+                id
+                mime
+                url
+                alternativeText
+              }
+              picture {
+                id
+                mime
+                url
+                alternativeText
+              }
+              text
+              authorName
+              authorTitle
+              link
+            }
+            title
+          }
+          ... on Strapi_ComponentSectionsLargeVideo {
+            id
+            description
+            title
+            poster {
+              id
+              mime
+              alternativeText
+              url
+            }
+            video {
+              alternativeText
+              url
+            }
+          }
+          ... on Strapi_ComponentSectionsRichText {
+            id
+            content
+          }
+          ... on Strapi_ComponentSectionsPricing {
+            id
+            title
+            plans {
+              description
+              features {
+                id
+                name
+              }
+              id
+              isRecommended
+              name
+              price
+              pricePeriod
+            }
+          }
+          ... on Strapi_ComponentSectionsLeadForm {
+            id
+            emailPlaceholder
+            location
+            submitButton {
+              id
+              text
+              type
+            }
+            title
+          }
+        }
+      }
+    }
+  }
+`

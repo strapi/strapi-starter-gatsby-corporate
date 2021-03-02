@@ -1,89 +1,120 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.com/docs/use-static-query/
- */
-
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
+const SEO = ({ seo = {} }) => {
+  const query = graphql`
+    query {
+      strapi {
+        global {
+          favicon {
+            url
+          }
+          metaTitleSuffix
+          metadata {
+            metaTitle
+            metaDescription
+            shareImage {
+              url
+            }
           }
         }
       }
-    `
-  )
+    }
+  `
+  const { strapi } = useStaticQuery(query)
+  const { metadata, metaTitleSuffix, favicon } = strapi.global
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  // Merge default and page-specific SEO values
+  const fullSeo = { ...metadata, ...seo }
+
+  const getMetaTags = () => {
+    const tags = []
+
+    if (fullSeo.metaTitle) {
+      tags.push(
+        {
+          property: "og:title",
+          content: fullSeo.metaTitle,
+        },
+        {
+          name: "twitter:title",
+          content: fullSeo.metaTitle,
+        }
+      )
+    }
+    if (fullSeo.metaDescription) {
+      tags.push(
+        {
+          name: "description",
+          content: fullSeo.metaDescription,
+        },
+        {
+          property: "og:description",
+          content: fullSeo.metaDescription,
+        },
+        {
+          name: "twitter:description",
+          content: fullSeo.metaDescription,
+        }
+      )
+    }
+    if (fullSeo.shareImage) {
+      const imageUrl =
+        (process.env.GATSBY_ROOT_URL || "http://localhost:8000") +
+        fullSeo.shareImage.url
+      tags.push(
+        {
+          name: "image",
+          content: imageUrl,
+        },
+        {
+          property: "og:image",
+          content: imageUrl,
+        },
+        {
+          name: "twitter:image",
+          content: imageUrl,
+        }
+      )
+    }
+    if (fullSeo.article) {
+      tags.push({
+        property: "og:type",
+        content: "article",
+      })
+    }
+    tags.push({ name: "twitter:card", content: "summary_large_image" })
+
+    return tags
+  }
+
+  const metaTags = getMetaTags()
 
   return (
     <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
-      meta={[
+      title={fullSeo.title || fullSeo.metaTitle}
+      titleTemplate={`%s | ${metaTitleSuffix}`}
+      meta={metaTags}
+      link={[
         {
-          name: `description`,
-          content: metaDescription,
+          rel: "icon",
+          href: favicon.url,
         },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata?.author || ``,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
+      ]}
     />
   )
 }
 
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
+SEO.propTypes = {
+  title: PropTypes.string,
+  image: PropTypes.string,
 }
 
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
+SEO.defaultProps = {
+  title: null,
+  image: null,
 }
 
 export default SEO
