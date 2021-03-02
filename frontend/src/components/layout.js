@@ -37,6 +37,7 @@ const globalQuery = graphql`
     strapi {
       global {
         footer {
+          id
           columns {
             id
             links {
@@ -51,6 +52,8 @@ const globalQuery = graphql`
           logo {
             alternativeText
             url
+            id
+            mime
           }
           smallText
         }
@@ -81,6 +84,8 @@ const globalQuery = graphql`
           logo {
             alternativeText
             url
+            id
+            mime
           }
         }
         notificationBanner {

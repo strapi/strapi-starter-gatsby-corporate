@@ -24,7 +24,7 @@ const Navbar = ({ navbar }) => {
         <div className="container flex flex-row items-center justify-between">
           {/* Content aligned to the left */}
           <div className="flex flex-row items-center">
-            <Link to="/[[...slug]]" as="/">
+            <Link to="/">
               <a>
                 <Image
                   media={navbar.logo}

@@ -24,17 +24,18 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `)
+
   
+
   data.strapi.pages.forEach(page => {
-    if (page.slug) {
-      createPage({
-        path: page.slug,
-        component: path.resolve("./src/templates/page.js"),
-        context: {
-          slug: page.slug,
-          id: page.id
-        },
-      })
-    }
+    const slug = page.slug ? page.slug : "/"
+    createPage({
+      path: slug,
+      component: path.resolve("./src/templates/page.js"),
+      context: {
+        slug: page.slug,
+        id: page.id,
+      },
+    })
   })
 }

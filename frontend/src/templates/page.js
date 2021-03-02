@@ -8,7 +8,6 @@ const DynamicPage = ({ data }) => {
 
   return (
     <Layout>
-
       <Sections sections={sections} />
     </Layout>
   )
@@ -73,6 +72,11 @@ export const query = graphql`
                 url
               }
               title
+              media {
+                mime
+                alternativeText
+                url
+              }
             }
           }
           ... on Strapi_ComponentSectionsTestimonialsGroup {
@@ -93,6 +97,23 @@ export const query = graphql`
               }
             }
             title
+            testimonials {
+              authorName
+              authorTitle
+              id
+              link
+              logo {
+                alternativeText
+                url
+                mime
+              }
+              picture {
+                alternativeText
+                url
+                mime
+              }
+              text
+            }
           }
           ... on Strapi_ComponentSectionsLargeVideo {
             id

@@ -1,14 +1,13 @@
 import React from "react"
-import classNames from "classnames";
-import { useState } from "react";
-import Image from "../elements/image";
-import CustomLink from "../elements/custom-link";
+import classNames from "classnames"
+import { useState } from "react"
+import Image from "../elements/image"
+import CustomLink from "../elements/custom-link"
 
 const TestimonialsGroup = ({ data }) => {
   // Only show one testimonial at a time
-  const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0);
-  const selectedTestimonial = data.testimonials[selectedTestimonialIndex];
-
+  const [selectedTestimonialIndex, setSelectedTestimonialIndex] = useState(0)
+  const selectedTestimonial = data.testimonials[selectedTestimonialIndex]
   return (
     <section className="text-center text-lg bg-gray-200 pt-12 pb-16">
       <h2 className="title mb-4">{data.title}</h2>
@@ -38,7 +37,14 @@ const TestimonialsGroup = ({ data }) => {
               {selectedTestimonial.authorTitle}
             </p>
           </div>
-          <CustomLink link={{ url: selectedTestimonial.link, text: '', newTab: false, id: 0 }}>
+          <CustomLink
+            link={{
+              url: selectedTestimonial.link,
+              text: "",
+              newTab: false,
+              id: 0,
+            }}
+          >
             <span className="uppercase tracking-wide text-blue-700 hover:underline  with-arrow sm:self-end mt-6 sm:mt-0">
               Read story
             </span>
@@ -66,7 +72,7 @@ const TestimonialsGroup = ({ data }) => {
       )}
       {/* Logos list */}
       <div className="flex flex-row flex-wrap items-center gap-6 sm:gap-20 justify-center mt-10 px-6 sm:px-0">
-        {data.logos.map((logo) => (
+        {data.logos.map(logo => (
           <Image
             media={logo.logo}
             className="h-8 max-w-xs w-auto object-contain"
@@ -75,7 +81,7 @@ const TestimonialsGroup = ({ data }) => {
         ))}
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default TestimonialsGroup;
+export default TestimonialsGroup
