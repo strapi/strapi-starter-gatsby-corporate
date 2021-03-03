@@ -8,10 +8,10 @@ Use our `create-strapi-starter` CLI to create your project.
 
 ```sh
 # Using Yarn
-yarn create strapi-starter@next my-site https://github.com/strapi/strapi-starter-gatsby-corporate
+yarn create strapi-starter my-site gatsby-corporate
 
 # Or using NPM
-npx create-strapi-starter@next my-site https://github.com/strapi/strapi-starter-gatsby-corporate
+npx create-strapi-starter my-site gatsby-corporate
 ```
 
 The CLI will create a monorepo, install dependencies, and run your project automatically.
