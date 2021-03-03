@@ -26,6 +26,7 @@ const Navbar = ({ navbar }) => {
           <div className="flex flex-row items-center">
             <Link to="/">
               <Image
+                fixed
                 media={navbar.logo}
                 className="h-8 w-auto object-contain"
               />
