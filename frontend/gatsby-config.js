@@ -37,8 +37,23 @@ module.exports = {
       options: {
         typeName: "Strapi",
         fieldName: "strapi",
-        url: `${process.env.GATSBY_STRAPI_URL || 'http://localhost:1337'}/graphql`,
+        url: `${
+          process.env.GATSBY_STRAPI_URL || "http://localhost:1337"
+        }/graphql`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-graphql-image',
+      options: {
+        images: [
+          {
+            schemaName: 'Strapi',
+            typeName: 'Strapi_UploadFile',
+            fieldName: 'url',
+            baseUrl: "http://localhost:1337",
+          },
+        ]
+      }
+    }
   ],
 }

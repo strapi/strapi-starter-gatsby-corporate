@@ -1,15 +1,15 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Navbar from "./elements/navbar";
-import Footer from "./elements/footer";
-import NotificationBanner from "./elements/notification-banner";
-import { useState } from "react";
+import Navbar from "./elements/navbar"
+import Footer from "./elements/footer"
+import NotificationBanner from "./elements/notification-banner"
+import { useState } from "react"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(globalQuery)
-  const { navbar, footer, notificationBanner } = data.strapi.global;
+  const { navbar, footer, notificationBanner } = data.strapi.global
 
-  const [bannerIsShown, setBannerIsShown] = useState(true);
+  const [bannerIsShown, setBannerIsShown] = useState(true)
 
   return (
     <div className="flex flex-col justify-between min-h-screen">
@@ -27,10 +27,10 @@ const Layout = ({ children }) => {
       {/* Aligned to the bottom */}
       <Footer footer={footer} />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout
 
 const globalQuery = graphql`
   query GlobalQuery {
@@ -54,6 +54,13 @@ const globalQuery = graphql`
             mime
             alternativeText
             url
+            urlSharp {
+              childImageSharp {
+                fixed(width: 113, height: 30) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
             id
             mime
           }
@@ -88,6 +95,13 @@ const globalQuery = graphql`
             mime
             alternativeText
             url
+            urlSharp {
+              childImageSharp {
+                fixed(width: 113, height: 30) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
             id
             mime
           }

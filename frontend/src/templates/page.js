@@ -6,7 +6,6 @@ import SEO from "@/components/seo"
 
 const DynamicPage = ({ data }) => {
   const { contentSections, metadata } = data.strapi.page
-
   return (
     <>
       <SEO seo={metadata} />
@@ -74,6 +73,13 @@ export const query = graphql`
                 mime
                 alternativeText
                 url
+                urlSharp {
+                  childImageSharp {
+                    fixed(width: 113, height: 30) {
+                      ...GatsbyImageSharpFixed
+                    }
+                  }
+                }
               }
               id
               title
@@ -89,7 +95,6 @@ export const query = graphql`
                 newTab
                 text
                 url
-
               }
               media {
                 id
@@ -117,6 +122,13 @@ export const query = graphql`
                 mime
                 alternativeText
                 url
+                urlSharp {
+                  childImageSharp {
+                    fixed(width: 113, height: 30) {
+                      ...GatsbyImageSharpFixed
+                    }
+                  }
+                }
               }
             }
             testimonials {
@@ -125,12 +137,26 @@ export const query = graphql`
                 id
                 mime
                 url
+                urlSharp {
+                  childImageSharp {
+                    fixed(width: 113, height: 30) {
+                      ...GatsbyImageSharpFixed
+                    }
+                  }
+                }
                 alternativeText
               }
               picture {
                 id
                 mime
                 url
+                urlSharp {
+                  childImageSharp {
+                    fluid {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
                 alternativeText
               }
               text
