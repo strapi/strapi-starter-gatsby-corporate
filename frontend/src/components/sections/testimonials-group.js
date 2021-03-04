@@ -19,14 +19,14 @@ const TestimonialsGroup = ({ data }) => {
       </CustomLink>
       {/* Current testimonial card */}
       <div className="max-w-5xl w-8/12 sm:w-8/12 bg-white shadow-md sm:shadow-xl mx-auto flex flex-col sm:flex-row mt-10 text-left">
-        <div className="w-full">
+        <div className="w-full sm:w-1/2 lg:w-1/3">
           <Image
             fluid
             imgStyle={{ objectFit: "cover" }}
             media={selectedTestimonial.picture}
           />
         </div>
-        <div className="px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
+        <div className="sm:w-1/2 lg:w-2/3 px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
           <div>
             <Image
               fixed
