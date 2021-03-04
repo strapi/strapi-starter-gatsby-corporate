@@ -19,8 +19,8 @@ const Image = ({ media, className, fixed, fluid, imgStyle }) => {
   if (fluid) {
     return (
       <Img
-        style={{ height: "100%" }}
         fluid={media.urlSharp.childImageSharp.fluid}
+        style={{ height: "100%" }}
         imgStyle={imgStyle}
       />
     )
