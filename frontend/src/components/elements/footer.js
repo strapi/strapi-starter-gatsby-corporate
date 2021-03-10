@@ -10,11 +10,7 @@ const Footer = ({ footer }) => {
       <div className="container flex flex-col lg:flex-row lg:justify-between">
         <div>
           {footer.logo && (
-            <Image
-              fixed
-              media={footer.logo}
-              className="h-8 w-auto object-contain"
-            />
+            <Image style={{ width: "112px"}} media={footer.logo} className="h-8 w-auto object-contain" />
           )}
         </div>
         <nav className="flex flex-wrap flex-row lg:gap-20 items-start lg:justify-end mb-10">

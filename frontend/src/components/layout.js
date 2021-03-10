@@ -54,15 +54,16 @@ const globalQuery = graphql`
             mime
             alternativeText
             url
-            urlSharp {
-              childImageSharp {
-                fixed(width: 113, height: 30) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
             id
             mime
+            urlSharp {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
           }
           smallText
         }
@@ -95,15 +96,16 @@ const globalQuery = graphql`
             mime
             alternativeText
             url
-            urlSharp {
-              childImageSharp {
-                fixed(width: 113, height: 30) {
-                  ...GatsbyImageSharpFixed
-                }
-              }
-            }
             id
             mime
+            urlSharp {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
           }
         }
         notificationBanner {
