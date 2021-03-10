@@ -21,15 +21,14 @@ const TestimonialsGroup = ({ data }) => {
       <div className="max-w-5xl w-8/12 sm:w-8/12 bg-white shadow-md sm:shadow-xl mx-auto flex flex-col sm:flex-row mt-10 text-left">
         <div className="w-full sm:w-1/2 lg:w-1/3">
           <Image
-            fluid
-            imgStyle={{ objectFit: "cover" }}
+            style={{ height: "100%" }}
             media={selectedTestimonial.picture}
           />
         </div>
         <div className="sm:w-1/2 lg:w-2/3 px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
           <div>
             <Image
-              fixed
+              style={{ width: "115px" }}
               media={selectedTestimonial.logo}
               className="h-8 w-auto mb-6 sm:mb-10 mt-2 sm:mt-0"
             />
@@ -80,7 +79,7 @@ const TestimonialsGroup = ({ data }) => {
       <div className="flex flex-row flex-wrap items-center gap-6 sm:gap-20 justify-center mt-10 px-6 sm:px-0">
         {data.logos.map(logo => (
           <Image
-            fixed
+            style={{ width: "115px" }}
             media={logo.logo}
             className="h-8 max-w-xs w-auto object-contain"
             key={logo.id}
