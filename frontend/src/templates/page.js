@@ -123,8 +123,7 @@ export const query = graphql`
                 urlSharp {
                   childImageSharp {
                     gatsbyImageData(
-                      width: 200
-                      placeholder: BLURRED
+                      placeholder: NONE
                       formats: [AUTO, WEBP, AVIF]
                     )
                   }
@@ -140,7 +139,7 @@ export const query = graphql`
                 urlSharp {
                   childImageSharp {
                     gatsbyImageData(
-                      placeholder: BLURRED
+                      placeholder: NONE
                       formats: [AUTO, WEBP, AVIF]
                     )
                   }
