@@ -30,7 +30,7 @@ const TestimonialsGroup = ({ data }) => {
             <Image
               style={{ width: "115px" }}
               media={selectedTestimonial.logo}
-              className="h-8 w-auto mb-6 sm:mb-10 mt-2 sm:mt-0"
+              className="mb-6 sm:mb-10 mt-2 sm:mt-0"
             />
             <p className="italic mb-6">"{selectedTestimonial.text}"</p>
             <p className="font-bold text-base sm:text-sm">
