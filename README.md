@@ -46,7 +46,6 @@ module.exports = {
   },
 };
 ```
-
 ## Deploying to production
 
 You will need to deploy the `frontend` and `backend` projects separately. Here are the docs to deploy each one:
@@ -59,6 +58,7 @@ Don't forget to set up your environment variables on your production apps.
 Here are the required ones for the frontend:
 
 - `GATSBY_STRAPI_URL`: URL of your Strapi backend, without trailing slash
+- `PREVIEW_SECRET`: a random string used to protect your preview pages
 
 And for the backend:
 

@@ -1,16 +1,16 @@
-import React from "react"
+import React, { useState } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Navbar from "./elements/navbar"
 import Footer from "./elements/footer"
 import NotificationBanner from "./elements/notification-banner"
-import { useState } from "react"
+
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(globalQuery)
   const { navbar, footer, notificationBanner } = data.strapi.global
-
+  
   const [bannerIsShown, setBannerIsShown] = useState(true)
-
+  
   return (
     <div className="flex flex-col justify-between min-h-screen">
       {/* Aligned to the top */}
