@@ -9,34 +9,46 @@ import React, { useState, useEffect } from "react"
 
 import { fetchAPI } from "@/utils/api"
 
-import WithLocation from "@/components/with-location"
 import Sections from "@/components/sections"
 import Layout from "@/components/layout"
+import SEO from "@/components/seo"
 
+import { useLocation } from "@reach/router"
 import { useCookies } from "react-cookie"
 
-const PreviewPage = ({ slug, search, location }) => {
+const PreviewPage = ({ slug }) => {
   const [secretPage, setSecretPage] = useState(null)
   const [cookies, setCookie] = useCookies()
+
+  const location = useLocation()
+  const params = new URLSearchParams(location.search)
+  const secret = params.get("secret")
+
+  const metaData = secretPage && {
+    ...secretPage.metadata,
+    metaTitle: `Preview ${secretPage.metadata.metaTitle}`,
+  }
+
   // The user is correctly trying to access the preview page
   if (
     cookies.strapiPreview !== process.env.PREVIEW_SECRET &&
-    search.secret === process.env.PREVIEW_SECRET
+    secret === process.env.PREVIEW_SECRET
   ) {
     setCookie("strapiPreview", process.env.PREVIEW_SECRET, {
-      secure: process.env.NODE_ENV === 'production' ? true : false,
-      sameSite: 'Strict'
+      secure: process.env.NODE_ENV === "production" ? true : false,
+      sameSite: "Strict",
     })
   }
 
   useEffect(() => {
     const fetchData = async () => {
-      const [data] = await fetchAPI(`/pages?slug=${slug}&status=draft`)
+      const [data] = await fetchAPI(`/pages?slug=${slug}`)
       setSecretPage(data)
     }
 
     fetchData()
   }, [slug])
+
 
   if (!cookies.strapiPreview) {
     return (
@@ -49,14 +61,17 @@ const PreviewPage = ({ slug, search, location }) => {
   }
 
   return (
-    <Layout>
-      {secretPage && (
-        <div>
-          <Sections sections={secretPage.contentSections} />
-        </div>
-      )}
-    </Layout>
+    <>
+      <SEO seo={metaData} />
+      <Layout>
+        {secretPage && (
+          <div>
+            <Sections sections={secretPage.contentSections} />
+          </div>
+        )}
+      </Layout>
+    </>
   )
 }
 
-export default WithLocation(PreviewPage)
+export default PreviewPage

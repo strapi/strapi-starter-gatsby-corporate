@@ -10,7 +10,7 @@ import Pricing from "./sections/pricing"
 import LeadForm from "./sections/lead-form"
 import { useCookies } from "react-cookie"
 import { navigate } from "gatsby-link"
-import WithLocation from "@/components/with-location"
+import { useLocation } from "@reach/router"
 
 // Map Strapi sections to section components
 const sectionComponents = {
@@ -25,7 +25,6 @@ const sectionComponents = {
   Strapi_ComponentSectionsLeadForm: LeadForm,
 }
 
-// TODO: Use single map for draft and published content
 const previewComponents = {
   "sections.hero": Hero,
   "sections.large-video": LargeVideo,
@@ -45,9 +44,10 @@ const PreviewModeBanner = ({ location }) => {
         Preview mode is on.{" "}
         <button
           className="underline"
-          onClick={() =>
+          onClick={() => {
+            // The cookie will be deleted by a useEffect in the Section component
             navigate("/", { state: { prevPath: location.pathname } })
-          }
+          }}
         >
           Turn off
         </button>
@@ -75,7 +75,8 @@ const Section = ({ sectionData }) => {
 }
 
 // Display the list of sections
-const Sections = ({ sections, location }) => {
+const Sections = ({ sections,  }) => {
+  const location = useLocation()
   // Ignore unused destructured variable
   // eslint-disable-next-line
   const [cookies, _, removeCookie] = useCookies(["strapiPreview"])
@@ -84,17 +85,18 @@ const Sections = ({ sections, location }) => {
     // The preview cookie is deleted when state.prevPath exists on location
     if (location.state && location.state.prevPath) {
       removeCookie("strapiPreview", {
-        secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'Strict'
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "Strict",
       })
     }
   }, [location, removeCookie])
 
   return (
     <div className="flex flex-col">
-      {cookies.strapiPreview === process.env.PREVIEW_SECRET && (
-        <PreviewModeBanner location={location} />
-      )}
+      {process.env.PREVIEW_SECRET &&
+        cookies.strapiPreview === process.env.PREVIEW_SECRET && (
+          <PreviewModeBanner location={location} />
+        )}
       {sections.map((section, i) => (
         <Section
           sectionData={section}
@@ -105,4 +107,4 @@ const Sections = ({ sections, location }) => {
   )
 }
 
-export default WithLocation(Sections)
+export default Sections

@@ -62,7 +62,7 @@ const SEO = ({ seo = {} }) => {
     }
     if (fullSeo.shareImage) {
       const imageUrl =
-        (process.env.GATSBY_ROOT_URL || "http://localhost:8000") +
+        (process.env.GATSBY_STRAPI_URL || "http://localhost:8000") +
         fullSeo.shareImage.url
       tags.push(
         {
