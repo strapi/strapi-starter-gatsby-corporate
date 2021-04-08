@@ -6,6 +6,7 @@ import SEO from "@/components/seo"
 
 const DynamicPage = ({ data }) => {
   const { contentSections, metadata } = data.strapi.page
+
   return (
     <>
       <SEO seo={metadata} />
