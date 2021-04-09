@@ -20,10 +20,10 @@ The CLI will create a monorepo, install dependencies, and run your project autom
 
 You can turn preview mode on with a URL like this:
 
-`http://localhost:3000/api/preview/<slug>?secret=<preview-secret>`
+`http://localhost:3000/api/preview/<slug>?secret=<gatsby-preview-secret>`
 
 `<slug>` is the slug you entered in Strapi for your page.
-`<preview-secret>` is the secret token defined in your .env.development / .env.production config, 
+`<gatsby-preview-secret>` is the secret token defined in your .env.development / .env.production config,
 
 Once preview mode is on you can then access `draft` pages with urls like this: 
 
@@ -73,6 +73,6 @@ Don't forget to set up your environment variables on your production apps.
 Here are the required ones for the frontend:
 
 - `GATSBY_STRAPI_URL`: URL of your Strapi backend, without trailing slash
-- `PREVIEW_SECRET`: a random string used to protect your preview pages
+- `GATSBY_PREVIEW_SECRET`: a random string used to protect your preview pages
 
 Have fun using this starter!

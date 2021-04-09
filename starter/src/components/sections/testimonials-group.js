@@ -1,7 +1,7 @@
 import React from "react"
 import classNames from "classnames"
 import { useState } from "react"
-import Image from "../elements/image"
+import Image from "../image"
 import CustomLink from "../elements/custom-link"
 
 const TestimonialsGroup = ({ data }) => {

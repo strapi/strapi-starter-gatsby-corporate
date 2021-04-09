@@ -1,5 +1,5 @@
 import React from "react"
-import Image from "./image"
+import Image from "../image"
 import PropTypes from "prop-types"
 import { linkPropTypes, mediaPropTypes } from "@/utils/types"
 import CustomLink from "./custom-link"
