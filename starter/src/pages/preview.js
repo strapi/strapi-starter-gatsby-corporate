@@ -35,7 +35,7 @@ const PreviewPage = ({ slug }) => {
     secret === process.env.PREVIEW_SECRET
   ) {
     setCookie("strapiPreview", process.env.PREVIEW_SECRET, {
-      secure: process.env.NODE_ENV === "production" ? true : false,
+      secure: process.env.NODE_ENV,
       sameSite: "Strict",
     })
   }
