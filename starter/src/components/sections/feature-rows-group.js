@@ -1,6 +1,6 @@
 import React from "react"
 import classNames from "classnames";
-import Image from "../elements/image";
+import Image from "../image";
 import Video from "../elements/video";
 import CustomLink from "../elements/custom-link";
 

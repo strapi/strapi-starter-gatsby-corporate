@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types";
 import { MdClose, MdChevronRight } from "react-icons/md";
-import Image from "./image";
+import Image from "../image";
 import {
   mediaPropTypes,
   linkPropTypes,

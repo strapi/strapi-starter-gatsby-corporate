@@ -5,7 +5,7 @@ import PropTypes from "prop-types"
 import { MdMenu } from "react-icons/md"
 import MobileNavMenu from "./mobile-nav-menu"
 import ButtonLink from "./button-link"
-import Image from "./image"
+import Image from "../image"
 import {
   mediaPropTypes,
   linkPropTypes,
@@ -26,6 +26,7 @@ const Navbar = ({ navbar }) => {
           <div className="flex flex-row items-center">
             <Link to="/">
               <Image
+                placeholder="none"
                 style={{ width: '112px' }}
                 media={navbar.logo}
                 className="h-8 w-auto object-contain"

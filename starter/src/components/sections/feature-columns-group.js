@@ -1,5 +1,5 @@
 import React from "react"
-import Image from "../elements/image";
+import Image from "../image";
 
 const FeatureColumnsGroup = ({ data }) => {
   return (
