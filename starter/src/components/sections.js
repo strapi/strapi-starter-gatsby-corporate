@@ -90,11 +90,11 @@ const Sections = ({ sections,  }) => {
       })
     }
   }, [location, removeCookie])
-
+  console.log(process.env.GATSBY_PREVIEW_SECRET, cookies.strapiPreview)
   return (
     <div className="flex flex-col">
-      {process.env.PREVIEW_SECRET &&
-        cookies.strapiPreview === process.env.PREVIEW_SECRET && (
+      {process.env.GATSBY_PREVIEW_SECRET &&
+        cookies.strapiPreview === process.env.GATSBY_PREVIEW_SECRET && (
           <PreviewModeBanner location={location} />
         )}
       {sections.map((section, i) => (

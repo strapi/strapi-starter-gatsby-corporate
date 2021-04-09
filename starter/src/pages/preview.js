@@ -1,7 +1,7 @@
 /**
  * You can preview pages with URLs like this:
  * http://localhost:8000/preview/<slug>?secret=<preview-secret>
- * where <preview-secret> is the PREVIEW_SECRET variable defined in your .env config
+ * where <preview-secret> is the GATSBY_PREVIEW_SECRET variable defined in your .env config
  * and <slug> is the slug you entered in Strapi for your page
  */
 
@@ -31,10 +31,10 @@ const PreviewPage = ({ slug }) => {
 
   // The user is correctly trying to access the preview page
   if (
-    cookies.strapiPreview !== process.env.PREVIEW_SECRET &&
-    secret === process.env.PREVIEW_SECRET
+    cookies.strapiPreview !== process.env.GATSBY_PREVIEW_SECRET &&
+    secret === process.env.GATSBY_PREVIEW_SECRET
   ) {
-    setCookie("strapiPreview", process.env.PREVIEW_SECRET, {
+    setCookie("strapiPreview", process.env.GATSBY_PREVIEW_SECRET, {
       secure: process.env.NODE_ENV,
       sameSite: "Strict",
     })
