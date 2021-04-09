@@ -22,6 +22,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -41,7 +42,22 @@ module.exports = {
       options: {
         typeName: "Strapi",
         fieldName: "strapi",
-        url: `${process.env.GATSBY_STRAPI_URL || 'http://localhost:1337'}/graphql`,
+        url: `${
+          process.env.GATSBY_STRAPI_URL || "http://localhost:1337"
+        }/graphql`,
+      },
+    },
+    {
+      resolve: "gatsby-plugin-graphql-image",
+      options: {
+        images: [
+          {
+            schemaName: "Strapi",
+            typeName: "Strapi_UploadFile",
+            fieldName: "url",
+            baseUrl: process.env.GATSBY_STRAPI_URL || "http://localhost:1337",
+          },
+        ],
       },
     },
   ],

@@ -1,8 +1,8 @@
 import React from "react"
-import Markdown from "react-markdown";
-import ButtonLink from "../elements/button-link";
-import Image from "../elements/image";
-import { getButtonAppearance } from "@/utils/button";
+import Markdown from "react-markdown"
+import ButtonLink from "../elements/button-link"
+import Image from "../elements/image"
+import { getButtonAppearance } from "@/utils/button"
 
 const Hero = ({ data }) => {
   return (
@@ -17,7 +17,7 @@ const Hero = ({ data }) => {
         <p className="text-xl mb-6">{data.description}</p>
         {/* Buttons row */}
         <div className="flex flex-row flex-wrap gap-4">
-          {data.buttons.map((button) => (
+          {data.buttons.map(button => (
             <ButtonLink
               button={button}
               appearance={getButtonAppearance(button.type, "light")}
@@ -36,7 +36,7 @@ const Hero = ({ data }) => {
         className="flex-shrink-0 object-contain w-full md:w-6/12 mt-6 md:mt-0"
       />
     </main>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

@@ -1,18 +1,14 @@
 import React from "react"
 import { Link } from "gatsby"
-import PropTypes from "prop-types";
-import { linkPropTypes } from "@/utils/types";
+import PropTypes from "prop-types"
+import { linkPropTypes } from "@/utils/types"
 
 const CustomLink = ({ link, children }) => {
-  const isInternalLink = link.url.startsWith('/')
+  const isInternalLink = link.url.startsWith("/")
 
   // For internal links, use the Next.js Link component
   if (isInternalLink) {
-    return (
-      <Link to={link.url} >
-        {children}
-      </Link>
-    )
+    return <Link to={link.url}>{children}</Link>
   }
 
   // Plain <a> tags for external links
@@ -21,11 +17,11 @@ const CustomLink = ({ link, children }) => {
       href={link.url}
       // Change target and rel attributes is newTab is turned on
       target={link.newTab ? "_blank" : "_self"}
-      rel={link.newTab ? "noopener noreferrer" : ""}
+      rel="noreferrer"
     >
       {children}
     </a>
-  );  
+  )
 }
 
 CustomLink.propTypes = {
@@ -34,6 +30,6 @@ CustomLink.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-};
+}
 
-export default CustomLink;
+export default CustomLink

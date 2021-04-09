@@ -19,15 +19,18 @@ const TestimonialsGroup = ({ data }) => {
       </CustomLink>
       {/* Current testimonial card */}
       <div className="max-w-5xl w-8/12 sm:w-8/12 bg-white shadow-md sm:shadow-xl mx-auto flex flex-col sm:flex-row mt-10 text-left">
-        <Image
-          media={selectedTestimonial.picture}
-          className="w-full md:w-4/12 object-cover flex-shrink-0"
-        />
-        <div className="px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
+        <div className="w-full sm:w-1/2 lg:w-1/3">
+          <Image
+            style={{ height: "100%" }}
+            media={selectedTestimonial.picture}
+          />
+        </div>
+        <div className="sm:w-1/2 lg:w-2/3 px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
           <div>
             <Image
+              style={{ width: "115px" }}
               media={selectedTestimonial.logo}
-              className="h-8 w-auto mb-6 sm:mb-10 mt-2 sm:mt-0"
+              className="mb-6 sm:mb-10 mt-2 sm:mt-0"
             />
             <p className="italic mb-6">"{selectedTestimonial.text}"</p>
             <p className="font-bold text-base sm:text-sm">
@@ -55,6 +58,8 @@ const TestimonialsGroup = ({ data }) => {
       {data.testimonials.length > 1 && (
         <div className="flex flex-row gap-4 mt-10 justify-center">
           {data.testimonials.map((testimonial, index) => (
+            // button has implicit role
+            // eslint-disable-next-line
             <button
               onClick={() => setSelectedTestimonialIndex(index)}
               className={classNames(
@@ -66,7 +71,7 @@ const TestimonialsGroup = ({ data }) => {
                 }
               )}
               key={testimonial.id}
-            ></button>
+            />
           ))}
         </div>
       )}
@@ -74,6 +79,7 @@ const TestimonialsGroup = ({ data }) => {
       <div className="flex flex-row flex-wrap items-center gap-6 sm:gap-20 justify-center mt-10 px-6 sm:px-0">
         {data.logos.map(logo => (
           <Image
+            style={{ width: "115px" }}
             media={logo.logo}
             className="h-8 max-w-xs w-auto object-contain"
             key={logo.id}

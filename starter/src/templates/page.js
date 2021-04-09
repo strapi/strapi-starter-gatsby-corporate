@@ -36,6 +36,7 @@ export const query = graphql`
         }
         contentSections {
           ... on Strapi_ComponentSectionsBottomActions {
+            __typename
             id
             title
             buttons {
@@ -47,6 +48,7 @@ export const query = graphql`
             }
           }
           ... on Strapi_ComponentSectionsHero {
+            __typename
             id
             buttons {
               id
@@ -66,6 +68,7 @@ export const query = graphql`
             }
           }
           ... on Strapi_ComponentSectionsFeatureColumnsGroup {
+            __typename
             id
             features {
               description
@@ -80,6 +83,7 @@ export const query = graphql`
             }
           }
           ... on Strapi_ComponentSectionsFeatureRowsGroup {
+            __typename
             id
             features {
               description
@@ -89,7 +93,6 @@ export const query = graphql`
                 newTab
                 text
                 url
-
               }
               media {
                 id
@@ -101,6 +104,7 @@ export const query = graphql`
             }
           }
           ... on Strapi_ComponentSectionsTestimonialsGroup {
+            __typename
             id
             description
             link {
@@ -117,6 +121,14 @@ export const query = graphql`
                 mime
                 alternativeText
                 url
+                urlSharp {
+                  childImageSharp {
+                    gatsbyImageData(
+                      placeholder: NONE
+                      formats: [AUTO, WEBP, AVIF]
+                    )
+                  }
+                }
               }
             }
             testimonials {
@@ -125,12 +137,30 @@ export const query = graphql`
                 id
                 mime
                 url
+                urlSharp {
+                  childImageSharp {
+                    gatsbyImageData(
+                      placeholder: NONE
+                      formats: [AUTO, WEBP, AVIF]
+                    )
+                  }
+                }
                 alternativeText
               }
               picture {
                 id
                 mime
                 url
+                urlSharp {
+                  childImageSharp {
+                    gatsbyImageData(
+                      layout: FULL_WIDTH
+                      transformOptions: { fit: CONTAIN }
+                      placeholder: BLURRED
+                      formats: [AUTO, WEBP, AVIF]
+                    )
+                  }
+                }
                 alternativeText
               }
               text
@@ -141,6 +171,7 @@ export const query = graphql`
             title
           }
           ... on Strapi_ComponentSectionsLargeVideo {
+            __typename
             id
             description
             title
@@ -156,10 +187,12 @@ export const query = graphql`
             }
           }
           ... on Strapi_ComponentSectionsRichText {
+            __typename
             id
             content
           }
           ... on Strapi_ComponentSectionsPricing {
+            __typename
             id
             title
             plans {
@@ -176,6 +209,7 @@ export const query = graphql`
             }
           }
           ... on Strapi_ComponentSectionsLeadForm {
+            __typename
             id
             emailPlaceholder
             location

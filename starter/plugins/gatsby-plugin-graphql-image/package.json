@@ -1,0 +1,29 @@
+{
+  "name": "gatsby-plugin-graphql-image",
+  "version": "2.0.0",
+  "description": "A gatsby plugin for generating file nodes from remote image URLS in GraphQL API's",
+  "main": "gatsby-node.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rocketmakers/gatsby-plugin-graphql-image"
+  },
+  "scripts": {
+    "release": "ts-node _deploy/publish.ts"
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin"
+  ],
+  "author": "Adam Walker",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketmakers/log": "^0.1.0",
+    "@types/node": "^12.7.12",
+    "@types/prompts": "^2.0.1",
+    "@types/semver": "^6.0.2",
+    "prompts": "^2.2.1",
+    "semver": "^6.3.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}

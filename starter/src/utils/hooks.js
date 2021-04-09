@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect } from "react";
+import {  useEffect } from "react";
 
 // Got from https://usehooks.com/useLockBodyScroll/
 export function useLockBodyScroll() {

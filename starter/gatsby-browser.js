@@ -5,4 +5,11 @@
  */
 
 // You can delete this file if you're not using it
-import './src/styles/global.css';
+
+import React from "react"
+import { CookiesProvider } from 'react-cookie';
+import "./src/styles/global.css"
+
+export const wrapRootElement = ({ element }) => (
+  <CookiesProvider>{element}</CookiesProvider>
+)

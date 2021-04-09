@@ -14,6 +14,8 @@ const Video = ({
   const fullPosterUrl = getStrapiMedia(poster?.url);
 
   return (
+    // TODO: Videos must have captions track
+    // eslint-disable-next-line
     <video
       className={className}
       poster={fullPosterUrl}

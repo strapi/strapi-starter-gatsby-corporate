@@ -1,15 +1,32 @@
 import React from "react"
 
-
-import { getStrapiMedia } from "@/utils/media"
 import PropTypes from "prop-types"
 import { mediaPropTypes } from "@/utils/types"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { getStrapiMedia } from "../../utils/media"
 
-const Image = ({ media, className }) => {
-  const { url, alternativeText } = media
-  const fullUrl = getStrapiMedia(url)
+const Image = ({ media, className, style }) => {
+  const { alternativeText, url } = media
 
-  return <img src={fullUrl} alt={alternativeText || ""} className={className} />
+  const image = getImage(media.urlSharp)
+
+  const alt = alternativeText ? alternativeText : 'An image uploaded to Strapi'
+  
+  // fallback for svg
+  if (!image) {
+    const imageUrl = getStrapiMedia(url)
+    return <img src={imageUrl} alt={alt} className={className} />
+  }
+
+  
+  return (
+    <GatsbyImage
+      className={className}
+      style={style}
+      image={image}
+      alt={alt}
+    />
+  )
 }
 
 Image.propTypes = {
@@ -18,4 +35,3 @@ Image.propTypes = {
 }
 
 export default Image
-
