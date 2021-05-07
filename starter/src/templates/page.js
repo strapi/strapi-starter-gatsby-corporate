@@ -4,13 +4,14 @@ import Layout from "@/components/layout"
 import Sections from "@/components/sections"
 import SEO from "@/components/seo"
 
-const DynamicPage = ({ data }) => {
-  const { contentSections, metadata } = data.strapi.page
+const DynamicPage = ({ data, pageContext }) => {
+  const { contentSections, metadata, localizations } = data.strapi.page
+  const { global } = data.strapi
 
   return (
     <>
       <SEO seo={metadata} />
-      <Layout>
+      <Layout global={global} pageContext={{ ...pageContext, localizations }}>
         <Sections sections={contentSections} />
       </Layout>
     </>
@@ -20,8 +21,87 @@ const DynamicPage = ({ data }) => {
 export default DynamicPage
 
 export const query = graphql`
-  query DynamicPageQuery($id: ID!) {
+  query DynamicPageQuery($id: ID!, $locale: String!) {
     strapi {
+      global(locale: $locale) {
+        footer {
+          id
+          columns {
+            id
+            links {
+              id
+              newTab
+              text
+              url
+            }
+            title
+          }
+          id
+          logo {
+            id
+            mime
+            alternativeText
+            url
+            id
+            mime
+            urlSharp {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+          }
+          smallText
+        }
+        id
+        metaTitleSuffix
+        metadata {
+          id
+          metaDescription
+          metaTitle
+          twitterCardType
+          twitterUsername
+        }
+        navbar {
+          button {
+            id
+            newTab
+            text
+            type
+            url
+          }
+          id
+          links {
+            url
+            text
+            newTab
+            id
+          }
+          logo {
+            id
+            mime
+            alternativeText
+            url
+            id
+            mime
+            urlSharp {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+          }
+        }
+        notificationBanner {
+          id
+          text
+          type
+        }
+      }
       page(id: $id) {
         slug
         shortName
@@ -33,6 +113,10 @@ export const query = graphql`
             mime
             url
           }
+        }
+        localizations {
+          id
+          locale
         }
         contentSections {
           ... on Strapi_ComponentSectionsBottomActions {

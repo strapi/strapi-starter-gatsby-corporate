@@ -85,12 +85,13 @@ const Sections = ({ sections,  }) => {
     // The preview cookie is deleted when state.prevPath exists on location
     if (location.state && location.state.prevPath) {
       removeCookie("strapiPreview", {
+        path: '/',
         secure: process.env.NODE_ENV === "production",
         sameSite: "Strict",
       })
     }
   }, [location, removeCookie])
-  console.log(process.env.GATSBY_PREVIEW_SECRET, cookies.strapiPreview)
+  
   return (
     <div className="flex flex-col">
       {process.env.GATSBY_PREVIEW_SECRET &&

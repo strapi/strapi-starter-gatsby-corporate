@@ -15,15 +15,24 @@ import SEO from "@/components/seo"
 
 import { useLocation } from "@reach/router"
 import { useCookies } from "react-cookie"
+import { graphql } from "gatsby"
 
-const PreviewPage = ({ slug }) => {
+const PreviewPage = ({ locale, slug, data }) => {
   const [secretPage, setSecretPage] = useState(null)
+  const [global, setGlobal] = useState(null)
+  const [pageContext, setPageContext] = useState(null)
   const [cookies, setCookie] = useCookies()
-
   const location = useLocation()
   const params = new URLSearchParams(location.search)
   const secret = params.get("secret")
-
+  const {
+    site: {
+      siteMetadata: {
+        languages: { locales, defaultLocale },
+      },
+    },
+  } = data
+  
   const metaData = secretPage && {
     ...secretPage.metadata,
     metaTitle: `Preview ${secretPage.metadata.metaTitle}`,
@@ -35,6 +44,7 @@ const PreviewPage = ({ slug }) => {
     secret === process.env.GATSBY_PREVIEW_SECRET
   ) {
     setCookie("strapiPreview", process.env.GATSBY_PREVIEW_SECRET, {
+      path: '/',
       secure: process.env.NODE_ENV,
       sameSite: "Strict",
     })
@@ -42,17 +52,34 @@ const PreviewPage = ({ slug }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [data] = await fetchAPI(`/pages?slug=${slug}`)
+      const [data] = await fetchAPI(`/pages?_locale=${locale}&slug=${slug}`)
       setSecretPage(data)
+
+      const context = {
+        slug: data.slug,
+        id: data.id,
+        locale: data.locale,
+        localizations: data.localizations,
+        locales,
+        defaultLocale,
+        isPreview: true
+      }
+      setPageContext(context)
+
+      const globalData = await fetchAPI(`/global?_locale=${locale}`)
+      setGlobal(globalData)
     }
 
     fetchData()
-  }, [slug])
+  }, [slug, locales, defaultLocale, locale])
 
+  if (!pageContext || !global) {
+    return <div>loading preview...</div>
+  }
 
   if (!cookies.strapiPreview) {
     return (
-      <Layout>
+      <Layout pageContext={pageContext} global={global}>
         <div className="mt-4 text-center">
           You need to turn preview mode on to view this page
         </div>
@@ -63,7 +90,7 @@ const PreviewPage = ({ slug }) => {
   return (
     <>
       <SEO seo={metaData} />
-      <Layout>
+      <Layout pageContext={pageContext} global={global}>
         {secretPage && (
           <div>
             <Sections sections={secretPage.contentSections} />
@@ -75,3 +102,16 @@ const PreviewPage = ({ slug }) => {
 }
 
 export default PreviewPage
+
+export const query = graphql`
+  query SiteQuery {
+    site {
+      siteMetadata {
+        languages {
+          locales
+          defaultLocale
+        }
+      }
+    }
+  }
+`
