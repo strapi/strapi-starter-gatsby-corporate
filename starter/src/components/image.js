@@ -5,7 +5,7 @@ import { mediaPropTypes } from "@/utils/types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { getStrapiMedia } from "../utils/media"
 
-const Image = ({ media, className, style, placeholder }) => {
+const Image = ({ media, className, style }) => {
   const { alternativeText, url } = media
 
   const image = getImage(media.urlSharp)

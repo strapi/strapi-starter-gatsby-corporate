@@ -7,9 +7,11 @@ module.exports = {
     DEV_SSR: false,
   },
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Strapi+Gatsby Corporate Starter`,
+    siteUrl: `${process.env.GATSBY_STRAPI_URL || "http://localhost:1337"}`,
+    description: `A Strapi+Gatsby corporate starter`,
+    author: `Strapi`,
+    languages: { defaultLocale: "en", locales: ["en", "fr"] },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -55,7 +57,7 @@ module.exports = {
             schemaName: "Strapi",
             typeName: "Strapi_UploadFile",
             fieldName: "url",
-            baseUrl: process.env.GATSBY_STRAPI_URL || "http://localhost:1337",
+            baseUrl: process.env.GATSBY_STRAPI_URL ? "" : "http://localhost:1337"
           },
         ],
       },
