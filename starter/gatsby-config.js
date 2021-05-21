@@ -57,7 +57,7 @@ module.exports = {
             schemaName: "Strapi",
             typeName: "Strapi_UploadFile",
             fieldName: "url",
-            baseUrl: process.env.GATSBY_STRAPI_URL || "http://localhost:1337",
+            baseUrl: process.env.GATSBY_STRAPI_URL ? "" : "http://localhost:1337"
           },
         ],
       },
