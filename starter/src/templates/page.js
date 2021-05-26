@@ -10,7 +10,7 @@ const DynamicPage = ({ data, pageContext }) => {
 
   return (
     <>
-      <SEO seo={metadata} />
+      <SEO seo={metadata} global={global} />
       <Layout global={global} pageContext={{ ...pageContext, localizations }}>
         <Sections sections={contentSections} />
       </Layout>
@@ -24,6 +24,9 @@ export const query = graphql`
   query DynamicPageQuery($id: ID!, $locale: String!) {
     strapi {
       global(locale: $locale) {
+        favicon {
+          url
+        }
         footer {
           id
           columns {

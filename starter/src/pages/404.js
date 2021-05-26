@@ -24,7 +24,7 @@ const NotFoundPage = ({ data }) => {
       }}
       global={global}
     >
-      <SEO title="404: Not found" />
+      <SEO seo={{ title: "404: Not found" }} global={global} />
       <h1>404: Not Found</h1>
       <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
     </Layout>
@@ -45,6 +45,9 @@ export const query = graphql`
     }
     strapi {
       global {
+        favicon {
+          url
+        }
         footer {
           id
           columns {

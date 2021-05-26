@@ -89,7 +89,7 @@ const PreviewPage = ({ locale, slug, data }) => {
 
   return (
     <>
-      <SEO seo={metaData} />
+      <SEO seo={metaData} global={global} />
       <Layout pageContext={pageContext} global={global}>
         {secretPage && (
           <div>
