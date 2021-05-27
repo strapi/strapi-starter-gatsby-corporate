@@ -6,7 +6,7 @@ import { graphql } from "gatsby"
 
 const NotFoundPage = ({ data }) => {
   const {
-    strapi: { global },
+    strapiGlobal,
     site: {
       siteMetadata: {
         languages: { locales, defaultLocale },
@@ -22,7 +22,7 @@ const NotFoundPage = ({ data }) => {
         defaultLocale,
         slug: "404",
       }}
-      global={global}
+      global={strapiGlobal}
     >
       <SEO title="404: Not found" />
       <h1>404: Not Found</h1>
@@ -43,84 +43,82 @@ export const query = graphql`
         }
       }
     }
-    strapi {
-      global {
-        footer {
-          id
-          columns {
-            id
-            links {
-              id
-              newTab
-              text
-              url
-            }
-            title
-          }
-          id
-          logo {
-            id
-            mime
-            alternativeText
-            url
-            id
-            urlSharp {
-              childImageSharp {
-                gatsbyImageData(
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
-            }
-          }
-          smallText
-        }
+    strapiGlobal {
+      footer {
         id
-        metaTitleSuffix
-        metadata {
-          id
-          metaDescription
-          metaTitle
-          twitterCardType
-          twitterUsername
-        }
-        navbar {
-          button {
-            id
-            newTab
-            text
-            type
-            url
-          }
+        columns {
           id
           links {
-            url
-            text
+            id
             newTab
-            id
-          }
-          logo {
-            id
-            mime
-            alternativeText
+            text
             url
-            id
-            mime
-            urlSharp {
-              childImageSharp {
-                gatsbyImageData(
-                  placeholder: BLURRED
-                  formats: [AUTO, WEBP, AVIF]
-                )
-              }
+          }
+          title
+        }
+        id
+        logo {
+          id
+          mime
+          alternativeText
+          url
+          id
+          localFile {
+            childImageSharp {
+              gatsbyImageData(
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
             }
           }
         }
-        notificationBanner {
+        smallText
+      }
+      id
+      metaTitleSuffix
+      metadata {
+        id
+        metaDescription
+        metaTitle
+        twitterCardType
+        twitterUsername
+      }
+      navbar {
+        button {
           id
+          newTab
           text
           type
+          url
         }
+        id
+        links {
+          url
+          text
+          newTab
+          id
+        }
+        logo {
+          id
+          mime
+          alternativeText
+          url
+          id
+          mime
+          localFile {
+            childImageSharp {
+              gatsbyImageData(
+                placeholder: BLURRED
+                formats: [AUTO, WEBP, AVIF]
+              )
+            }
+          }
+        }
+      }
+      notificationBanner {
+        id
+        text
+        type
       }
     }
   }
