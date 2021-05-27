@@ -14,18 +14,6 @@ import { useLocation } from "@reach/router"
 
 // Map Strapi sections to section components
 const sectionComponents = {
-  Strapi_ComponentSectionsHero: Hero,
-  Strapi_ComponentSectionsLargeVideo: LargeVideo,
-  Strapi_ComponentSectionsFeatureColumnsGroup: FeatureColumnsGroup,
-  Strapi_ComponentSectionsFeatureRowsGroup: FeatureRowsGroup,
-  Strapi_ComponentSectionsBottomActions: BottomActions,
-  Strapi_ComponentSectionsTestimonialsGroup: TestimonialsGroup,
-  Strapi_ComponentSectionsRichText: RichText,
-  Strapi_ComponentSectionsPricing: Pricing,
-  Strapi_ComponentSectionsLeadForm: LeadForm,
-}
-
-const previewComponents = {
   "sections.hero": Hero,
   "sections.large-video": LargeVideo,
   "sections.feature-columns-group": FeatureColumnsGroup,
@@ -59,12 +47,7 @@ const PreviewModeBanner = ({ location }) => {
 // Display a section individually
 const Section = ({ sectionData }) => {
   // Prepare the component
-  let SectionComponent
-  if (sectionData.__component) {
-    SectionComponent = previewComponents[sectionData.__component]
-  } else {
-    SectionComponent = sectionComponents[sectionData.__typename]
-  }
+  const SectionComponent = sectionComponents[sectionData.strapi_component]
 
   if (!SectionComponent) {
     return null
@@ -75,7 +58,8 @@ const Section = ({ sectionData }) => {
 }
 
 // Display the list of sections
-const Sections = ({ sections,  }) => {
+const Sections = ({ sections }) => {
+  console.log(sections)
   const location = useLocation()
   // Ignore unused destructured variable
   // eslint-disable-next-line
@@ -101,7 +85,7 @@ const Sections = ({ sections,  }) => {
       {sections.map((section, i) => (
         <Section
           sectionData={section}
-          key={`${section.__component}${(section.id, i)}`}
+          key={`${section.strapi_component}${(section.id, i)}`}
         />
       ))}
     </div>

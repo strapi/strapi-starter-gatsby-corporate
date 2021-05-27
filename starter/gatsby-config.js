@@ -40,26 +40,27 @@ module.exports = {
     "gatsby-plugin-postcss",
     `gatsby-plugin-gatsby-cloud`,
     {
-      resolve: "gatsby-source-graphql",
+      resolve: "gatsby-source-strapi",
       options: {
-        typeName: "Strapi",
-        fieldName: "strapi",
-        url: `${
-          process.env.GATSBY_STRAPI_URL || "http://localhost:1337"
-        }/graphql`,
-      },
-    },
-    {
-      resolve: "gatsby-plugin-graphql-image",
-      options: {
-        images: [
+        apiURL: process.env.API_URL || "http://localhost:1337",
+        collectionTypes: [
           {
-            schemaName: "Strapi",
-            typeName: "Strapi_UploadFile",
-            fieldName: "url",
-            baseUrl: process.env.GATSBY_STRAPI_URL ? "" : "http://localhost:1337"
+            name: 'page',
+            api: {
+              qs: {
+                _publicationState: 'preview',
+                _locale: 'all'
+              }
+            },
           },
         ],
+        singleTypes: [
+          {
+            name: 'global',
+            api: { qs: { _locale: `all` } },
+          },
+        ],
+        queryLimit: 1000,
       },
     },
   ],

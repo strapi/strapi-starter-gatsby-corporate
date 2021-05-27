@@ -39,20 +39,23 @@ exports.createPages = async ({ graphql, actions }) => {
   const localePages = locales.map(async locale => {
     const { data } = await graphql(
       `
-      query pagesQuery($locale: String!) {
-        strapi {
-          pages(locale: $locale, where: { status: "published" }) {
-            slug
-            id
-            locale
+        query pagesQuery($locale: String!) {
+          allStrapiPage(filter: {
+            locale: { eq: $locale },
+            status: { eq: "published" },
+          }) {
+            nodes {
+              slug
+              id
+              locale
+            }
           }
-        }
-      },
-    `,
+        },
+      `,
       { locale: locale }
     )
 
-    return data.strapi.pages
+    return data.allStrapiPage.nodes
   })
 
   const pages = await (await Promise.all(localePages)).flat()
