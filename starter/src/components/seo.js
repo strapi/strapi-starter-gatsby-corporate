@@ -6,25 +6,27 @@ import { useStaticQuery, graphql } from "gatsby"
 const SEO = ({ seo = {} }) => {
   const query = graphql`
     query {
-      strapi {
-        global {
-          favicon {
-            url
+      strapiGlobal {
+        favicon {
+          localFile {
+            publicURL
           }
-          metaTitleSuffix
-          metadata {
-            metaTitle
-            metaDescription
-            shareImage {
-              url
+        }
+        metaTitleSuffix
+        metadata {
+          metaTitle
+          metaDescription
+          shareImage {
+            localFile {
+              publicURL
             }
           }
         }
       }
     }
   `
-  const { strapi } = useStaticQuery(query)
-  const { metadata, metaTitleSuffix, favicon } = strapi.global
+  const { strapiGlobal } = useStaticQuery(query)
+  const { metadata, metaTitleSuffix, favicon } = strapiGlobal
 
   // Merge default and page-specific SEO values
   const fullSeo = { ...metadata, ...seo }
@@ -63,7 +65,7 @@ const SEO = ({ seo = {} }) => {
     if (fullSeo.shareImage) {
       const imageUrl =
         (process.env.GATSBY_STRAPI_URL || "http://localhost:8000") +
-        fullSeo.shareImage.url
+        fullSeo.shareImage.localFile.publicURL
       tags.push(
         {
           name: "image",
@@ -100,7 +102,7 @@ const SEO = ({ seo = {} }) => {
       link={[
         {
           rel: "icon",
-          href: favicon.url,
+          href: favicon.localFile.publicURL,
         },
       ]}
     />
