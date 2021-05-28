@@ -42,7 +42,6 @@ export async function listLocalizedPaths(pageContext) {
   )
 
   const localizedPaths = [currentPage, ...paths]
-
   // Check the default locale is first
   const defaultLocaleIndex = localizedPaths.findIndex(
     path => path.locale === pageContext.defaultLocale

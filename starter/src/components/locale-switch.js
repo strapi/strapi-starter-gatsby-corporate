@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby-link"
 import { Link } from "gatsby"
+import { useLocation } from "@reach/router"
 import {
   listLocalizedPaths,
   localizePath,
@@ -15,6 +16,7 @@ import { useOnClickOutside } from "@/utils/hooks"
 const LocaleSwitch = ({ pageContext }) => {
   const isMounted = useRef(false)
   const select = useRef()
+  const location = useLocation()
   const [cookies, setCookie] = useCookies()
   const [locale, setLocale] = useState(
     cookies.GATSBY_LOCALE || pageContext.locale
@@ -23,6 +25,7 @@ const LocaleSwitch = ({ pageContext }) => {
   const [localizedPaths, setLocalizedPaths] = useState(null)
 
   const handleLocaleChange = async selectedLocale => {
+    setShowing(false)
     setCookie("GATSBY_LOCALE", selectedLocale, {
       path: "/",
       secure: process.env.NODE_ENV,
@@ -35,7 +38,6 @@ const LocaleSwitch = ({ pageContext }) => {
 
   useEffect(() => {
     const changeLocale = async () => {
-      setShowing(false)
       if (
         !isMounted.current &&
         cookies.GATSBY_LOCALE &&
@@ -48,20 +50,22 @@ const LocaleSwitch = ({ pageContext }) => {
         )
         navigate(localizePath({ ...pageContext, ...localePage }))
       }
-
-      const slugs = await listLocalizedPaths(pageContext)
-
-      if (!isMounted.current) {
-        setLocalizedPaths(slugs)
-      }
     }
 
+    const updateLocalizedPaths = async () => {
+      const slugs = await listLocalizedPaths(pageContext)
+      setLocalizedPaths(slugs)
+    }
+
+    if (!isMounted.current) {
+      updateLocalizedPaths()
+    }
     changeLocale()
 
     return () => {
       isMounted.current = true
     }
-  }, [locale, pageContext, cookies.GATSBY_LOCALE, cookies.strapiPreview])
+  }, [location, pageContext, cookies.GATSBY_LOCALE])
 
   return (
     <div ref={select} className="relative ml-4">
