@@ -1,32 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
 
-const SEO = ({ seo = {} }) => {
-  const query = graphql`
-    query {
-      strapiGlobal {
-        favicon {
-          localFile {
-            publicURL
-          }
-        }
-        metaTitleSuffix
-        metadata {
-          metaTitle
-          metaDescription
-          shareImage {
-            localFile {
-              publicURL
-            }
-          }
-        }
-      }
-    }
-  `
-  const { strapiGlobal } = useStaticQuery(query)
-  const { metadata, metaTitleSuffix, favicon } = strapiGlobal
+const SEO = ({ seo = {}, locale, global }) => {
+  const { metadata, metaTitleSuffix, favicon } = global
 
   // Merge default and page-specific SEO values
   const fullSeo = { ...metadata, ...seo }
