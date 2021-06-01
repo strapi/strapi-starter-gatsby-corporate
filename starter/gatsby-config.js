@@ -57,7 +57,19 @@ module.exports = {
         singleTypes: [
           {
             name: 'global',
-            api: { qs: { _locale: `all` } },
+            api: {
+              qs: {
+                _locale: 'en'
+              }
+            },
+          },
+          {
+            name: 'global',
+            api: {
+              qs: {
+                _locale: 'fr'
+              }
+            },
           },
         ],
         queryLimit: 1000,
