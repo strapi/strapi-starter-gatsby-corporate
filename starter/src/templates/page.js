@@ -10,7 +10,7 @@ const DynamicPage = ({ data, pageContext }) => {
 
   return (
     <>
-      <SEO seo={metadata} />
+      <SEO seo={metadata} locale={pageContext.locale} global={global} />
       <Layout global={global} pageContext={{ ...pageContext, localizations }}>
         <Sections sections={contentSections} />
       </Layout>
@@ -23,6 +23,11 @@ export default DynamicPage
 export const query = graphql`
   query DynamicPageQuery($id: String!, $locale: String!) {
     strapiGlobal(locale: { eq: $locale }) {
+      favicon {
+        localFile {
+          publicURL
+        }
+      }
       footer {
         id
         columns {
@@ -37,12 +42,7 @@ export const query = graphql`
         }
         id
         logo {
-          id
-          mime
           alternativeText
-          url
-          id
-          mime
           localFile {
             childImageSharp {
               gatsbyImageData(
@@ -57,11 +57,13 @@ export const query = graphql`
       id
       metaTitleSuffix
       metadata {
-        id
         metaDescription
         metaTitle
-        twitterCardType
-        twitterUsername
+        shareImage {
+          localFile {
+            publicURL
+          }
+        }
       }
       navbar {
         button {
@@ -79,12 +81,6 @@ export const query = graphql`
           id
         }
         logo {
-          id
-          mime
-          alternativeText
-          url
-          id
-          mime
           localFile {
             childImageSharp {
               gatsbyImageData(
