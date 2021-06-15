@@ -1,6 +1,20 @@
 # Strapi Starter Gatsby Corporate Site
 
-Gatsby starter for creating a corporate site with Strapi.
+This starter is designed for flexibility. Using it, you'll be able to manage your website content entirely in Strapi, and get a Gatsby app automatically generated. Marketing teams will be able to create pages and design their layout without help from developers.
+
+This starter features:
+
+- Pages creation within Strapi, no code necessary
+- Fully flexible page structure: design the pages you want using UI Sections
+- 8 UI Sections out of the box: Hero, RichText, LargeVideo, Testimonials, Pricing, BottomActions, FeatureRows, FeatureColumns
+- Easy to theme with Tailwind
+- Static site generation with Gatsby
+- An integrated Preview Mode, to view your pages on a private URL before publishing them
+- Content in multiple languages using i18n
+
+This starter uses the [Strapi corporate template](https://github.com/strapi/strapi-template-corporate)
+
+Check out all of our starters [here](https://strapi.io/starters)
 
 ## Getting started
 
