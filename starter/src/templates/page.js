@@ -21,81 +21,85 @@ const DynamicPage = ({ data, pageContext }) => {
 export default DynamicPage
 
 export const query = graphql`
-  query DynamicPageQuery($id: String!, $locale: String!) {
-    strapiGlobal(locale: { eq: $locale }) {
-      favicon {
+  fragment GlobalData on StrapiGlobal {
+    favicon {
+      localFile {
+        publicURL
+      }
+    }
+    footer {
+      id
+      columns {
+        id
+        links {
+          id
+          newTab
+          text
+          url
+        }
+        title
+      }
+      id
+      logo {
+        alternativeText
+        localFile {
+          childImageSharp {
+            gatsbyImageData(
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
+          }
+        }
+      }
+      smallText
+    }
+    id
+    metaTitleSuffix
+    metadata {
+      metaDescription
+      metaTitle
+      shareImage {
         localFile {
           publicURL
         }
       }
-      footer {
+    }
+    navbar {
+      button {
         id
-        columns {
-          id
-          links {
-            id
-            newTab
-            text
-            url
-          }
-          title
-        }
-        id
-        logo {
-          alternativeText
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-        smallText
-      }
-      id
-      metaTitleSuffix
-      metadata {
-        metaDescription
-        metaTitle
-        shareImage {
-          localFile {
-            publicURL
-          }
-        }
-      }
-      navbar {
-        button {
-          id
-          newTab
-          text
-          type
-          url
-        }
-        id
-        links {
-          url
-          text
-          newTab
-          id
-        }
-        logo {
-          localFile {
-            childImageSharp {
-              gatsbyImageData(
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
-            }
-          }
-        }
-      }
-      notificationBanner {
-        id
+        newTab
         text
         type
+        url
       }
+      id
+      links {
+        url
+        text
+        newTab
+        id
+      }
+      logo {
+        localFile {
+          childImageSharp {
+            gatsbyImageData(
+              placeholder: BLURRED
+              formats: [AUTO, WEBP, AVIF]
+            )
+          }
+        }
+      }
+    }
+    notificationBanner {
+      id
+      text
+      type
+    }
+  }
+
+  query DynamicPageQuery($id: String!, $locale: String!) {
+    strapiGlobal(locale: { eq: $locale }) {
+      ...GlobalData
     }
     strapiPage(id: { eq: $id }) {
       slug

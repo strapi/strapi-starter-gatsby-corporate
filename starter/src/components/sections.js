@@ -47,9 +47,10 @@ const PreviewModeBanner = ({ location }) => {
 // Display a section individually
 const Section = ({ sectionData }) => {
   // Prepare the component
-  const SectionComponent = sectionComponents[sectionData.strapi_component]
+  const SectionComponent = sectionComponents[sectionData.strapi_component || sectionData.__component]
 
   if (!SectionComponent) {
+    // No matching component for this page section
     return null
   }
 
@@ -59,7 +60,6 @@ const Section = ({ sectionData }) => {
 
 // Display the list of sections
 const Sections = ({ sections }) => {
-  console.log(sections)
   const location = useLocation()
   // Ignore unused destructured variable
   // eslint-disable-next-line
@@ -75,13 +75,15 @@ const Sections = ({ sections }) => {
       })
     }
   }, [location, removeCookie])
+
+  const previewModeIsEnabled = process.env.GATSBY_PREVIEW_SECRET &&
+    cookies.strapiPreview === process.env.GATSBY_PREVIEW_SECRET
   
   return (
     <div className="flex flex-col">
-      {process.env.GATSBY_PREVIEW_SECRET &&
-        cookies.strapiPreview === process.env.GATSBY_PREVIEW_SECRET && (
-          <PreviewModeBanner location={location} />
-        )}
+      {previewModeIsEnabled && (
+        <PreviewModeBanner location={location} />
+      )}
       {sections.map((section, i) => (
         <Section
           sectionData={section}
