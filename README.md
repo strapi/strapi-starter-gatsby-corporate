@@ -32,16 +32,22 @@ The CLI will create a monorepo, install dependencies, and run your project autom
 
 ## Preview Mode
 
-You can turn preview mode on with a URL like this:
+Start by setting a `GATSBY_PREVIEW_SECRET` value in your environment variables. You can create an environment file by copying our sample one:
 
-`http://localhost:3000/api/preview/<slug>?secret=<gatsby-preview-secret>`
+```sh
+cp .env.development.example .env.development
+```
+
+You can then turn preview mode on with a URL like this:
+
+`http://localhost:8000/en/preview/<slug>?secret=<gatsby-preview-secret>`
 
 `<slug>` is the slug you entered in Strapi for your page.
 `<gatsby-preview-secret>` is the secret token defined in your .env.development / .env.production config,
 
 Once preview mode is on you can then access `draft` pages with urls like this: 
 
-`http://localhost:8000/preview/secret` 
+`http://localhost:8000/preview/<slug>` 
 
 A banner will remain under the navigation to let you know preview mode is and it will allow you turn it off.
 

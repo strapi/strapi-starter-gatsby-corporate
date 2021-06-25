@@ -1,30 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
 
-const SEO = ({ seo = {} }) => {
-  const query = graphql`
-    query {
-      strapi {
-        global {
-          favicon {
-            url
-          }
-          metaTitleSuffix
-          metadata {
-            metaTitle
-            metaDescription
-            shareImage {
-              url
-            }
-          }
-        }
-      }
-    }
-  `
-  const { strapi } = useStaticQuery(query)
-  const { metadata, metaTitleSuffix, favicon } = strapi.global
+const SEO = ({ seo = {}, locale, global }) => {
+  const { metadata, metaTitleSuffix, favicon } = global
 
   // Merge default and page-specific SEO values
   const fullSeo = { ...metadata, ...seo }
@@ -63,7 +42,7 @@ const SEO = ({ seo = {} }) => {
     if (fullSeo.shareImage) {
       const imageUrl =
         (process.env.GATSBY_STRAPI_URL || "http://localhost:8000") +
-        fullSeo.shareImage.url
+        fullSeo.shareImage.localFile.publicURL
       tags.push(
         {
           name: "image",
@@ -100,7 +79,7 @@ const SEO = ({ seo = {} }) => {
       link={[
         {
           rel: "icon",
-          href: favicon.url,
+          href: favicon.localFile.publicURL,
         },
       ]}
     />
