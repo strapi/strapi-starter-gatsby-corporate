@@ -31,6 +31,7 @@ const PreviewPage = ({ locale, slug, data }) => {
         languages: { locales, defaultLocale },
       },
     },
+    strapiGlobal,
   } = data
   
   const metaData = secretPage && {
@@ -89,7 +90,7 @@ const PreviewPage = ({ locale, slug, data }) => {
 
   return (
     <>
-      <SEO seo={metaData} />
+      <SEO seo={metaData} locale={pageContext.locale} global={strapiGlobal} />
       <Layout pageContext={pageContext} global={global}>
         {secretPage && (
           <div>
@@ -112,6 +113,9 @@ export const query = graphql`
           defaultLocale
         }
       }
+    }
+    strapiGlobal {
+      ...GlobalData
     }
   }
 `
