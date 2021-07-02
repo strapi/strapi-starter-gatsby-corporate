@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet"
 
 const SEO = ({ seo = {}, locale, global }) => {
   const { metadata, metaTitleSuffix, favicon } = global
-
   // Merge default and page-specific SEO values
   const fullSeo = { ...metadata, ...seo }
 

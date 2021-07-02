@@ -26,7 +26,9 @@ const Navbar = ({ navbar, pageContext }) => {
         <div className="container flex flex-row items-center justify-between">
           {/* Content aligned to the left */}
           <div className="flex flex-row items-center">
-            <Link to={localizePath({ ...pageContext, slug: "" })}>
+            <Link
+              to={localizePath({ ...pageContext, isPreview: false, slug: "" })}
+            >
               <Image
                 placeholder="none"
                 style={{ width: "112px" }}
@@ -43,6 +45,7 @@ const Navbar = ({ navbar, pageContext }) => {
                       ...navLink,
                       url: `${localizePath({
                         ...pageContext,
+                        isPreview: false,
                         // Remove the '/'
                         slug: navLink.url.slice(1),
                       })}`,

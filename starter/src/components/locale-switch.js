@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useRef } from "react"
 import { navigate } from "gatsby-link"
 import { Link } from "gatsby"
-import {
-  listLocalizedPaths,
-  localizePath,
-  getLocalizedPage,
-} from "@/utils/localize"
+import { getLocalizedPage } from "@/utils/localize-fetch"
+import { localizePath } from "@/utils/localize"
 import WorldIcon from "@/components/icons/world"
 import { MdExpandMore } from "react-icons/md"
 import { useCookies } from "react-cookie"
@@ -20,7 +17,6 @@ const LocaleSwitch = ({ pageContext }) => {
     cookies.GATSBY_LOCALE || pageContext.locale
   )
   const [showing, setShowing] = useState(false)
-  const [localizedPaths, setLocalizedPaths] = useState(null)
 
   const handleLocaleChange = async selectedLocale => {
     setCookie("GATSBY_LOCALE", selectedLocale, {
@@ -30,10 +26,16 @@ const LocaleSwitch = ({ pageContext }) => {
     })
     setLocale(selectedLocale)
   }
+  const handleLocaleChangeRef = useRef(handleLocaleChange)
 
   useOnClickOutside(select, () => setShowing(false))
 
   useEffect(() => {
+    // Set the requested localed when no cookie locale is found
+    if (!cookies.GATSBY_LOCALE) {
+      handleLocaleChangeRef.current(pageContext.defaultLocale)
+    }
+
     const changeLocale = async () => {
       setShowing(false)
       if (
@@ -48,12 +50,6 @@ const LocaleSwitch = ({ pageContext }) => {
         )
         navigate(localizePath({ ...pageContext, ...localePage }))
       }
-
-      const slugs = await listLocalizedPaths(pageContext)
-
-      if (!isMounted.current) {
-        setLocalizedPaths(slugs)
-      }
     }
 
     changeLocale()
@@ -61,7 +57,7 @@ const LocaleSwitch = ({ pageContext }) => {
     return () => {
       isMounted.current = true
     }
-  }, [locale, pageContext, cookies.GATSBY_LOCALE, cookies.strapiPreview])
+  }, [locale, pageContext, cookies.GATSBY_LOCALE])
 
   return (
     <div ref={select} className="relative ml-4">
@@ -78,7 +74,7 @@ const LocaleSwitch = ({ pageContext }) => {
           showing ? "absolute" : "hidden"
         }`}
       >
-        {localizedPaths?.map(({ href, locale }) => {
+        {pageContext.localizedPaths?.map(({ href, locale }) => {
           return (
             <Link
               to={href}
