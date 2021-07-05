@@ -18,7 +18,7 @@ import { useLocation } from "@reach/router"
 import { useCookies } from "react-cookie"
 import { graphql } from "gatsby"
 
-const PreviewPage = ({ locale, slug, data, pageContext: plop }) => {
+const PreviewPage = ({ locale, slug, data }) => {
   const [secretPage, setSecretPage] = useState(null)
   const [pageContext, setPageContext] = useState(null)
   const [cookies, setCookie] = useCookies()

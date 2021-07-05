@@ -31,7 +31,7 @@ const Image = ({ media, className, style }) => {
 }
 
 Image.propTypes = {
-  media: mediaPropTypes.isRequired,
+  media: mediaPropTypes,
   className: PropTypes.string,
 }
 
