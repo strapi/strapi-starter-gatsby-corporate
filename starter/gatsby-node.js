@@ -92,11 +92,11 @@ exports.createPages = async ({ graphql, actions }) => {
     })
   })
 
-  const PreviewPage = path.resolve("./src/templates/prev.js")
+  const PreviewPage = path.resolve("./src/templates/preview.js")
 
   locales.forEach(locale => {
     const params = {
-      path: `${locale}/prev/`,
+      path: `${locale}/preview/`,
       component: PreviewPage,
       context: {
         locale,
@@ -116,10 +116,10 @@ exports.createPages = async ({ graphql, actions }) => {
 
 onCreatePage = async ({ page, actions }) => {
   const { createPage } = actions
-  if (page.path.includes("prev")) {
+  if (page.path.includes("preview")) {
     // page.matchPath is a special key that's used for matching pages
     // with corresponding routes only on the client.
-    page.matchPath = "/:locale/prev/:slug"
+    page.matchPath = "/:locale/preview/:slug"
     // Update the page.
     createPage(page)
   }

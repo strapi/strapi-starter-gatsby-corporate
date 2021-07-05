@@ -2,7 +2,7 @@ function localizePath(page) {
   const { locale, defaultLocale, slug, isPreview } = page
   if (isPreview && slug) {
     // The preview requires a prefix
-    return `/${locale}/prev/${slug}`
+    return `/${locale}/preview/${slug}`
   }
 
   if (locale === defaultLocale) {
