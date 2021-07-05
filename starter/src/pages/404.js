@@ -1,6 +1,7 @@
 import React from "react"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 import { graphql } from "gatsby"
 
 const NotFoundPage = ({ data }) => {
@@ -14,18 +15,21 @@ const NotFoundPage = ({ data }) => {
   } = data
 
   return (
-    <Layout
-      pageContext={{
-        locale: defaultLocale,
-        locales,
-        defaultLocale,
-        slug: "404",
-      }}
-      global={strapiGlobal}
-    >
-      <h1>404: Not Found</h1>
-      <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-    </Layout>
+    <>
+      <SEO seo={{ title: "404: Not found" }} global={global} />
+      <Layout
+        pageContext={{
+          locale: defaultLocale,
+          locales,
+          defaultLocale,
+          slug: "404",
+        }}
+        global={strapiGlobal}
+      >
+        <h1>404: Not Found</h1>
+        <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+      </Layout>
+    </>
   )
 }
 
@@ -63,10 +67,7 @@ export const query = graphql`
           id
           localFile {
             childImageSharp {
-              gatsbyImageData(
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
+              gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
             }
           }
         }
@@ -105,10 +106,7 @@ export const query = graphql`
           mime
           localFile {
             childImageSharp {
-              gatsbyImageData(
-                placeholder: BLURRED
-                formats: [AUTO, WEBP, AVIF]
-              )
+              gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
             }
           }
         }

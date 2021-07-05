@@ -2,10 +2,13 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 
-const SEO = ({ seo = {}, locale, global }) => {
-  const { metadata, metaTitleSuffix, favicon } = global
+const SEO = ({ seo, global }) => {
   // Merge default and page-specific SEO values
-  const fullSeo = { ...metadata, ...seo }
+  const fullSeo = {
+    favicon: global.favicon,
+    ...global.metadata,
+    ...seo.metadata,
+  }
 
   const getMetaTags = () => {
     const tags = []
@@ -39,9 +42,10 @@ const SEO = ({ seo = {}, locale, global }) => {
       )
     }
     if (fullSeo.shareImage) {
-      const imageUrl =
-        (process.env.GATSBY_STRAPI_URL || "http://localhost:8000") +
-        fullSeo.shareImage.localFile.publicURL
+      const imageUrl = process.env.GATSBY_STRAPI_URL
+        ? fullSeo.shareImage.publicURL
+        : `http://localhost:8000${fullSeo.shareImage.publicURL}`
+
       tags.push(
         {
           name: "image",
@@ -73,12 +77,12 @@ const SEO = ({ seo = {}, locale, global }) => {
   return (
     <Helmet
       title={fullSeo.title || fullSeo.metaTitle}
-      titleTemplate={`%s | ${metaTitleSuffix}`}
+      titleTemplate={`%s | ${fullSeo.metaTitleSuffix}`}
       meta={metaTags}
       link={[
         {
           rel: "icon",
-          href: favicon.localFile.publicURL,
+          href: fullSeo.favicon.url,
         },
       ]}
     />
