@@ -16,7 +16,7 @@ const NotFoundPage = ({ data }) => {
 
   return (
     <>
-      <SEO seo={{ title: "404: Not found" }} global={global} />
+      <SEO seo={{ title: "404: Not found" }} global={strapiGlobal} />
       <Layout
         pageContext={{
           locale: defaultLocale,
@@ -46,76 +46,7 @@ export const query = graphql`
       }
     }
     strapiGlobal {
-      footer {
-        id
-        columns {
-          id
-          links {
-            id
-            newTab
-            text
-            url
-          }
-          title
-        }
-        id
-        logo {
-          id
-          mime
-          alternativeText
-          url
-          id
-          localFile {
-            childImageSharp {
-              gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-            }
-          }
-        }
-        smallText
-      }
-      id
-      metaTitleSuffix
-      metadata {
-        id
-        metaDescription
-        metaTitle
-        twitterCardType
-        twitterUsername
-      }
-      navbar {
-        button {
-          id
-          newTab
-          text
-          type
-          url
-        }
-        id
-        links {
-          url
-          text
-          newTab
-          id
-        }
-        logo {
-          id
-          mime
-          alternativeText
-          url
-          id
-          mime
-          localFile {
-            childImageSharp {
-              gatsbyImageData(placeholder: BLURRED, formats: [AUTO, WEBP, AVIF])
-            }
-          }
-        }
-      }
-      notificationBanner {
-        id
-        text
-        type
-      }
+      ...GlobalData
     }
   }
 `

@@ -6,8 +6,8 @@ const SEO = ({ seo, global }) => {
   // Merge default and page-specific SEO values
   const fullSeo = {
     favicon: global.favicon,
-    ...global.metadata,
-    ...seo.metadata,
+    ...global,
+    ...seo,
   }
 
   const getMetaTags = () => {
@@ -82,7 +82,7 @@ const SEO = ({ seo, global }) => {
       link={[
         {
           rel: "icon",
-          href: fullSeo.favicon.url,
+          href: fullSeo.favicon.localFile.publicURL,
         },
       ]}
     />
