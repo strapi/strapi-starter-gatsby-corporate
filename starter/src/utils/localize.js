@@ -1,16 +1,6 @@
-import { fetchAPI } from "./api"
-
-export async function getLocalizedPage(targetLocale, pageContext) {
-  const localization = pageContext.localizations.find(
-    localization => localization.locale === targetLocale
-  )
-  const localePage = await fetchAPI(`/pages/${localization.id}`)
-  return localePage
-}
-
-export function localizePath(page) {
+function localizePath(page) {
   const { locale, defaultLocale, slug, isPreview } = page
-  if (isPreview) {
+  if (isPreview && slug) {
     // The preview requires a prefix
     return `/${locale}/preview/${slug}`
   }
@@ -24,36 +14,19 @@ export function localizePath(page) {
   return `/${locale}/${slug}`
 }
 
-export async function listLocalizedPaths(pageContext) {
-  const currentPage = {
-    locale: pageContext.locale,
-    href: localizePath(pageContext),
-  }
+function getLocalizedPaths(page) {
+  const paths = page.locales.map(locale => {
+    return {
+      locale: locale,
+      href: localizePath({ ...page, locale }),
+    }
+  })
 
-  const paths = await Promise.all(
-    pageContext.localizations.map(async localization => {
-      const localePage = await fetchAPI(`/pages/${localization.id}`)
-      const page = { ...pageContext, ...localePage }
-      return {
-        locale: page.locale,
-        href: localizePath(page),
-      }
-    })
-  )
+  return paths
+}
 
-  const localizedPaths = [currentPage, ...paths]
-
-  // Check the default locale is first
-  const defaultLocaleIndex = localizedPaths.findIndex(
-    path => path.locale === pageContext.defaultLocale
-  )
-
-  if (defaultLocaleIndex !== 0) {
-    // Grab the default locale by mutating the localizedPaths array
-    const [defaultLoc] = localizedPaths.splice(defaultLocaleIndex, 1)
-    // Add it back to the front of the array
-    localizedPaths.unshift(defaultLoc)
-  }
-
-  return localizedPaths
+// Use module.exports to acccess these functions in gatsby-node.js
+module.exports = {
+  localizePath,
+  getLocalizedPaths,
 }

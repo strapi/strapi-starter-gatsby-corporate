@@ -1,36 +1,37 @@
 import React from "react"
-
 import PropTypes from "prop-types"
 import { mediaPropTypes } from "@/utils/types"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import { getStrapiMedia } from "../utils/media"
 
 const Image = ({ media, className, style }) => {
-  const { alternativeText, url } = media
+  const isDynamicImage = Boolean(media.localFile)
+  const alt = media.alternativeText || "An image uploaded to Strapi"
 
-  const image = getImage(media.urlSharp)
-
-  const alt = alternativeText ? alternativeText : "An image uploaded to Strapi"
-
-  // fallback for svg
-  if (!image) {
-    const imageUrl = getStrapiMedia(url)
-    return <img src={imageUrl} alt={alt} className={className} />
+  if (isDynamicImage) {
+    return (
+      <GatsbyImage
+        className={className}
+        placeholder="none"
+        style={style}
+        image={getImage(media.localFile)}
+        alt={alt}
+      />
+    )
   }
 
   return (
-    <GatsbyImage
-      className={className}
-      placeholder="none"
-      style={style}
-      image={image}
+    <img
+      src={getStrapiMedia(media.url)}
       alt={alt}
+      style={style}
+      className={className}
     />
   )
 }
 
 Image.propTypes = {
-  media: mediaPropTypes.isRequired,
+  media: mediaPropTypes,
   className: PropTypes.string,
 }
 
