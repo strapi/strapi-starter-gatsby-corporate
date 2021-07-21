@@ -1,33 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
 
-const SEO = ({ seo = {} }) => {
-  const query = graphql`
-    query {
-      strapi {
-        global {
-          favicon {
-            url
-          }
-          metaTitleSuffix
-          metadata {
-            metaTitle
-            metaDescription
-            shareImage {
-              url
-            }
-          }
-        }
-      }
-    }
-  `
-  const { strapi } = useStaticQuery(query)
-  const { metadata, metaTitleSuffix, favicon } = strapi.global
-
+const SEO = ({ seo, global }) => {
   // Merge default and page-specific SEO values
-  const fullSeo = { ...metadata, ...seo }
+  const fullSeo = {
+    favicon: global.favicon,
+    ...global,
+    ...seo,
+  }
 
   const getMetaTags = () => {
     const tags = []
@@ -61,9 +42,10 @@ const SEO = ({ seo = {} }) => {
       )
     }
     if (fullSeo.shareImage) {
-      const imageUrl =
-        (process.env.GATSBY_STRAPI_URL || "http://localhost:8000") +
-        fullSeo.shareImage.url
+      const imageUrl = process.env.GATSBY_STRAPI_URL
+        ? fullSeo.shareImage.publicURL
+        : `http://localhost:8000${fullSeo.shareImage.publicURL}`
+
       tags.push(
         {
           name: "image",
@@ -95,12 +77,12 @@ const SEO = ({ seo = {} }) => {
   return (
     <Helmet
       title={fullSeo.title || fullSeo.metaTitle}
-      titleTemplate={`%s | ${metaTitleSuffix}`}
+      titleTemplate={`%s | ${fullSeo.metaTitleSuffix}`}
       meta={metaTags}
       link={[
         {
           rel: "icon",
-          href: favicon.url,
+          href: fullSeo.favicon.localFile.publicURL,
         },
       ]}
     />

@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react"
 
 import { fetchAPI } from "@/utils/api"
+import { getLocalizedPaths } from "@/utils/localize"
 
 import Sections from "@/components/sections"
 import Layout from "@/components/layout"
@@ -19,7 +20,6 @@ import { graphql } from "gatsby"
 
 const PreviewPage = ({ locale, slug, data }) => {
   const [secretPage, setSecretPage] = useState(null)
-  const [global, setGlobal] = useState(null)
   const [pageContext, setPageContext] = useState(null)
   const [cookies, setCookie] = useCookies()
   const location = useLocation()
@@ -31,8 +31,9 @@ const PreviewPage = ({ locale, slug, data }) => {
         languages: { locales, defaultLocale },
       },
     },
+    strapiGlobal,
   } = data
-  
+
   const metaData = secretPage && {
     ...secretPage.metadata,
     metaTitle: `Preview ${secretPage.metadata.metaTitle}`,
@@ -44,7 +45,7 @@ const PreviewPage = ({ locale, slug, data }) => {
     secret === process.env.GATSBY_PREVIEW_SECRET
   ) {
     setCookie("strapiPreview", process.env.GATSBY_PREVIEW_SECRET, {
-      path: '/',
+      path: "/",
       secure: process.env.NODE_ENV,
       sameSite: "Strict",
     })
@@ -62,24 +63,24 @@ const PreviewPage = ({ locale, slug, data }) => {
         localizations: data.localizations,
         locales,
         defaultLocale,
-        isPreview: true
+        isPreview: true,
       }
-      setPageContext(context)
 
-      const globalData = await fetchAPI(`/global?_locale=${locale}`)
-      setGlobal(globalData)
+      const localizedPaths = getLocalizedPaths(context)
+
+      setPageContext({ ...context, localizedPaths })
     }
 
     fetchData()
   }, [slug, locales, defaultLocale, locale])
 
-  if (!pageContext || !global) {
+  if (!pageContext || !strapiGlobal) {
     return <div>loading preview...</div>
   }
 
   if (!cookies.strapiPreview) {
     return (
-      <Layout pageContext={pageContext} global={global}>
+      <Layout pageContext={pageContext} global={strapiGlobal}>
         <div className="mt-4 text-center">
           You need to turn preview mode on to view this page
         </div>
@@ -89,8 +90,8 @@ const PreviewPage = ({ locale, slug, data }) => {
 
   return (
     <>
-      <SEO seo={metaData} />
-      <Layout pageContext={pageContext} global={global}>
+      <SEO seo={metaData} locale={pageContext.locale} global={strapiGlobal} />
+      <Layout pageContext={pageContext} global={strapiGlobal}>
         {secretPage && (
           <div>
             <Sections sections={secretPage.contentSections} />
@@ -104,7 +105,7 @@ const PreviewPage = ({ locale, slug, data }) => {
 export default PreviewPage
 
 export const query = graphql`
-  query SiteQuery {
+  query PreviewSiteQuery($locale: String!) {
     site {
       siteMetadata {
         languages {
@@ -112,6 +113,9 @@ export const query = graphql`
           defaultLocale
         }
       }
+    }
+    strapiGlobal(locale: { eq: $locale }) {
+      ...GlobalData
     }
   }
 `
