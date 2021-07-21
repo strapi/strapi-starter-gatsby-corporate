@@ -18,25 +18,25 @@ const TestimonialsGroup = ({ data }) => {
         </span>
       </CustomLink>
       {/* Current testimonial card */}
-      <div className="max-w-5xl w-8/12 sm:w-8/12 bg-white shadow-md sm:shadow-xl mx-auto flex flex-col sm:flex-row mt-10 text-left">
-        <div className="w-full sm:w-1/2 lg:w-1/3">
+      <div className="max-w-5xl w-8/12 bg-white shadow-md sm:shadow-xl mx-auto flex flex-col md:flex-row mt-10 text-left">
+        <div className="w-full md:w-1/2 lg:w-1/3">
           <Image
-            style={{ height: "100%" }}
+            className="h-full object-fill md:object-cover"
             media={selectedTestimonial.picture}
           />
         </div>
-        <div className="sm:w-1/2 lg:w-2/3 px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
+        <div className="md:w-1/2 lg:w-2/3 px-4 py-4 sm:px-12 sm:pt-12 sm:pb-4 flex flex-col justify-between">
           <div>
             <Image
               style={{ width: "115px" }}
               media={selectedTestimonial.logo}
-              className="mb-6 sm:mb-10 mt-2 sm:mt-0"
+              className="mb-6 md:mb-10 mt-2 sm:mt-0"
             />
             <p className="italic mb-6">"{selectedTestimonial.text}"</p>
-            <p className="font-bold text-base sm:text-sm">
+            <p className="font-bold text-base md:text-sm">
               {selectedTestimonial.authorName}
             </p>
-            <p className="text-base sm:text-sm">
+            <p className="text-base md:text-sm">
               {selectedTestimonial.authorTitle}
             </p>
           </div>
