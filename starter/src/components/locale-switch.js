@@ -31,7 +31,7 @@ const LocaleSwitch = ({ pageContext }) => {
   useOnClickOutside(select, () => setShowing(false))
 
   useEffect(() => {
-    // Set the requested localed when no cookie locale is found
+    // Set the requested locale when no cookie locale is found
     if (!cookies.GATSBY_LOCALE) {
       handleLocaleChangeRef.current(pageContext.defaultLocale)
     }
