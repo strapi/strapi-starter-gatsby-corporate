@@ -21,7 +21,7 @@ const TestimonialsGroup = ({ data }) => {
       <div className="max-w-5xl w-8/12 bg-white shadow-md sm:shadow-xl mx-auto flex flex-col md:flex-row mt-10 text-left">
         <div className="w-full md:w-1/2 lg:w-1/3">
           <Image
-            className="h-full object-fill md:object-cover"
+            className="min-h-full object-fill md:object-cover"
             media={selectedTestimonial.picture}
           />
         </div>
