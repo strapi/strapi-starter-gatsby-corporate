@@ -49,7 +49,7 @@ Once preview mode is on you can then access `draft` pages with urls like this:
 
 `http://localhost:8000/preview/<slug>` 
 
-A banner will remain under the navigation to let you know preview mode is and it will allow you turn it off.
+A banner will remain under the navigation to let you know preview mode is on, and it will allow you turn it off.
 
 ## Customize your corporate site
 
